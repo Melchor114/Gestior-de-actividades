@@ -1,0 +1,12 @@
+<resources>
+    <string name="app_name">project</string>
+    <string name="back">Back</string>
+    <string name="email">Email</string>
+    <string name="continuar">Continuar</string>
+    <string name="usuario">Usuario</string>
+    <string name="contrase_a">Contraseña</string>
+    <string name="Ingrese_su_usuario">Ingrese su Usuario</string>
+    <string name="ingrese_su_contrase_a">Ingrese su Contraseña</string>
+    <string name="login">Login</string>
+    <string name="ram_ia">RAM IA</string>
+</resources>
