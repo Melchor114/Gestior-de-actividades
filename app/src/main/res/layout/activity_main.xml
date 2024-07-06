@@ -22,8 +22,8 @@
         app:layout_constraintVertical_bias="0.117" />
 
     <TextView
-        android:layout_width="97dp"
-        android:layout_height="48dp"
+        android:layout_width="94dp"
+        android:layout_height="35dp"
         android:text="@string/usuario"
         android:textColor="#FFFFFF"
         android:textSize="24sp"
@@ -33,7 +33,7 @@
         app:layout_constraintHorizontal_bias="0.05"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.499" />
+        app:layout_constraintVertical_bias="0.432" />
 
     <EditText
         android:id="@+id/username"
@@ -54,18 +54,18 @@
         app:layout_constraintTop_toBottomOf="@+id/logo" />
 
     <TextView
-        android:layout_width="204dp"
-        android:layout_height="73dp"
+        android:layout_width="215dp"
+        android:layout_height="32dp"
         android:text="@string/contrase_a"
         android:textColor="#FFFFFF"
         android:textSize="24sp"
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.077"
+        app:layout_constraintHorizontal_bias="0.081"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.673" />
+        app:layout_constraintVertical_bias="0.55" />
 
     <EditText
         android:id="@+id/password"

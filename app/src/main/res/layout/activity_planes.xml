@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/aplicacion"
+    tools:context=".Planes">
+
+    <RadioButton
+        android:id="@+id/radioButton"
+        android:layout_width="374dp"
+        android:layout_height="46dp"
+        android:background="@drawable/custom_radio_button_background"
+        android:button="?android:attr/listChoiceIndicatorMultiple"
+        android:checked="true"
+        android:focusable="auto"
+        android:rotationX="1"
+        android:text="Personal"
+        android:textAlignment="textStart"
+        android:textColor="#FFFFFF"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.62"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.17000002" />
+</androidx.constraintlayout.widget.ConstraintLayout>

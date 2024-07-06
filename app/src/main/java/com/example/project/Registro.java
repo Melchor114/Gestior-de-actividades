@@ -24,7 +24,7 @@ public class Registro extends AppCompatActivity {
         });
     }
     public void openInicio(View view) {
-        Intent intent = new Intent(Registro.this, inicio.class);
+        Intent intent = new Intent(Registro.this, MainActivity.class);
         startActivity(intent);
         // Finalizar la actividad actual si es necesario
         finish();
