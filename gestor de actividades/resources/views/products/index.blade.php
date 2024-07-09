@@ -34,16 +34,16 @@
                                                 S#</th>
                                             <th scope="col"
                                                 class="px-6 py-3 bg-gray-50 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                                                Code</th>
+                                                nombre</th>
                                             <th scope="col"
                                                 class="px-6 py-3 bg-gray-50 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                                                Name</th>
+                                                precio_venta</th>
                                             <th scope="col"
                                                 class="px-6 py-3 bg-gray-50 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                                                Quantity</th>
+                                                precio_compra</th>
                                             <th scope="col"
                                                 class="px-6 py-3 bg-gray-50 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                                                Price</th>
+                                                fecha_compra</th>
                                             <th scope="col"
                                                 class="px-6 py-3 bg-gray-50 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                                                 Action</th>
@@ -53,20 +53,20 @@
                                         @forelse ($products as $product)
                                             <tr>
                                                 <td class="px-6 py-4 whitespace-nowrap">{{ $loop->iteration }}</td>
-                                                <td class="px-6 py-4 whitespace-nowrap">{{ $product->code }}</td>
-                                                <td class="px-6 py-4 whitespace-nowrap">{{ $product->name }}</td>
-                                                <td class="px-6 py-4 whitespace-nowrap">{{ $product->quantity }}</td>
-                                                <td class="px-6 py-4 whitespace-nowrap">{{ $product->price }}</td>
+                                                <td class="px-6 py-4 whitespace-nowrap">{{ $product->nombre }}</td>
+                                                <td class="px-6 py-4 whitespace-nowrap">{{ $product->precio_venta }}</td>
+                                                <td class="px-6 py-4 whitespace-nowrap">{{ $product->precio_compra }}</td>
+                                                <td class="px-6 py-4 whitespace-nowrap">{{ $product->fecha_compra }}</td>
                                                 <td class="px-6 py-4 whitespace-nowrap">
-                                                    <form action="{{ route('products.destroy', $product->id) }}"
+                                                    <form action="{{ route('products.destroy', $product->id_producto) }}"
                                                         method="post">
                                                         @csrf
                                                         @method('DELETE')
-                                                        <a href="{{ route('products.show', $product->id) }}"
+                                                        <a href="{{ route('products.show', $product->id_producto) }}"
                                                             class="inline-flex items-center px-2 py-1 bg-yellow-500 text-white text-xs font-medium rounded hover:bg-yellow-600 transition duration-150">
                                                             <i class="bi bi-eye mr-1"></i> Show
                                                         </a>
-                                                        <a href="{{ route('products.edit', $product->id) }}"
+                                                        <a href="{{ route('products.edit', $product->id_producto) }}"
                                                             class="inline-flex items-center px-2 py-1 bg-blue-500 text-white text-xs font-medium rounded hover:bg-blue-600 transition duration-150">
                                                             <i class="bi bi-pencil-square mr-1"></i> Edit
                                                         </a>
@@ -90,9 +90,9 @@
                                     </tbody>
                                 </table>
                             </div>
-                            <div class="mt-4">
+                            {{-- <div class="mt-4">
                                 {{ $products->links() }}
-                            </div>
+                            </div> --}}
                         </div>
                     </div>
 
