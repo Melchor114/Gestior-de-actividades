@@ -2,7 +2,7 @@
 
     <x-slot name="header">
         <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-            {{ __('Crear Productos') }}
+            {{ __('Crear Tarea') }}
         </h2>
     </x-slot>
 
@@ -12,14 +12,14 @@
         <div class="card">
             <div class="card-header">
                 <div class="float-start">
-                    Add New Product
+                    Add New Tarea
                 </div>
                 <div class="float-end">
-                    <a href="{{ route('products.index') }}" class="btn btn-primary btn-sm">&larr; atrás</a>
+                    <a href="{{ route('tareas.index') }}" class="btn btn-primary btn-sm">&larr; atrás</a>
                 </div>
             </div>
             <div class="card-body">
-                <form action="{{ route('products.store') }}" method="post">
+                <form action="{{ route('tareas.store') }}" method="post">
                     @csrf
 
                     <div class="mb-3 row">
