@@ -5,18 +5,35 @@
         </h2>
     </x-slot>
 
-    <div class="py-12">
-        <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-            <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
-                <div class="p-6 text-gray-900">
-                    {{ __("HOY!") }}
-                    <p class="text-sm text-gray-600">{{ \Carbon\Carbon::now()->format('d-m-Y') }}</p>
-
-                </div>
-
+  <div class="py-4"> <!-- Ajustar el padding vertical -->
+    <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
+        <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
+            <div class="p-6 text-gray-900 bg-or">
+                {{ __("HOY!") }}
+                <p class="text-sm text-gray-600">{{ \Carbon\Carbon::now()->format('d-m-Y') }}</p>
             </div>
         </div>
     </div>
+</div>
+<div class="py-4"> <!-- Ajustar el padding vertical -->
+    <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
+        <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg p-6">
+            <div class="flex justify-between items-center mb-4">
+                <div>
+                    <h3 class="text-lg font-semibold text-gray-800">Avances del Proyecto de Sheyla</h3>
+                    <p class="text-gray-700">Algunos avances en el proyecto de sheyla como el modal y las tareas</p>
+                </div>
+                <div class="flex items-center ml-4">
+                    <input type="checkbox" id="completed" class="form-checkbox h-5 w-5 text-blue-600">
+                    <label for="completed" class="ml-2 text-gray-700">Completada</label>
+                </div>
+            </div>
+            <div>
+                <p class="text-sm text-gray-600">11-07-2024</p>
+            </div>
+        </div>
+    </div>
+</div>
 
 
 
