@@ -22,11 +22,11 @@ class StoreTareaRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'code' => 'required|string|max:50|unique:products,code',
-            'name' => 'required|string|max:250',
-            'quantity' => 'required|integer|min:1|max:10000',
-            'price' => 'required',
-            'description' => 'nullable|string'
+            'nombre' => 'required|string|max:255|unique:tareas,nombre',
+            'descripcion' => 'nullable|string|max:500',
+            'fecha' => 'required|date',
+            'hora' => 'nullable|date_format:H:i',
+            'prioridad' => 'required|numeric|between:0.0,10.0',
         ];
     }
 }

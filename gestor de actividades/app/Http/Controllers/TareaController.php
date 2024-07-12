@@ -31,13 +31,23 @@ class TareaController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(StoreTareaRequest $request) : RedirectResponse
+    public function store(StoreTareaRequest $request): RedirectResponse
     {
-        Tarea::create($request->validated());
+        $validatedData = $request->validated();
+
+        // Combinar fecha y hora si están presentes
+        if ($request->fecha && $request->hora) {
+            $validatedData['fecha_hora'] = $request->fecha . ' ' . $request->hora;
+        }
+
+        // Crear la tarea con los datos combinados
+        Tarea::create($validatedData);
 
         return redirect()->route('tareas.index')
-                ->withSuccess('Nueva Tarea agregada.');
+            ->withSuccess('Nueva Tarea agregada.');
     }
+
+
 
     /**
      * Display the specified resource.

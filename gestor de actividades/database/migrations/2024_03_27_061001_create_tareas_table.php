@@ -15,11 +15,12 @@ return new class extends Migration
             $table->id('id_tarea');
             $table->string('nombre')->unique();
             $table->text('descripcion')->nullable();
-            $table->timestamp('fecha');
-            $table->timestamp('hora')->nullable();  
+            $table->date('fecha');
+            $table->time('hora')->nullable();  // Cambiado a tipo 'time'
             $table->decimal('prioridad', 8, 1);
             $table->timestamps();
         });
+
     }
 
     /**
