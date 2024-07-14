@@ -14,6 +14,8 @@ Route::get('/dashboard', function () {
 })->middleware(['auth', 'verified'])->name('dashboard');
 
 Route::resource('tareas', TareaController::class);
+Route::get('/tareas/eliminar/{id}', [TareaController::class, 'eliminar_tarea'])->name('eliminar_tarea');
+
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');

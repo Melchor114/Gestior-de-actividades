@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Tarea;
 use App\Http\Requests\StoreTareaRequest;
 use App\Http\Requests\UpdateTareaRequest;
+use Illuminate\Http\JsonResponse;
 use Illuminate\View\View;
 use Illuminate\Http\RedirectResponse;
 
@@ -43,7 +44,7 @@ class TareaController extends Controller
         // Crear la tarea con los datos combinados
         Tarea::create($validatedData);
 
-        return redirect()->route('tareas.index')
+        return redirect()->route('dashboard')
             ->withSuccess('Nueva Tarea agregada.');
     }
 
@@ -79,11 +80,18 @@ class TareaController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Tarea $tarea) : RedirectResponse
+    public function destroy(Tarea $tarea) : JsonResponse
     {
         $tarea->delete();
-
-        return redirect()->route('tareas.index')
-                ->withSuccess('Tarea is deleted successfully.');
+    
+        return response()->json(['message' => 'Tarea eliminada correctamente']);
     }
+
+    public function eliminar_tarea($id){
+        //eliminamos un registro de la bd
+        Tarea::where(['id_tarea'=>$id])->delete();
+        return redirect()->route('dashboard')
+        ->withSuccess('Tarea Eliminada.');;     
+}
+    
 }
