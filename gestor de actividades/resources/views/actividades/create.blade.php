@@ -14,11 +14,11 @@
                             Agregar Nuevo Evento
                         </div>
                         <div class="float-end">
-                            <a href="{{ route('events.index') }}" class="btn btn-light btn-sm">&larr; Atrás</a>
+                            <a href="{{ route('actividades.index') }}" class="btn btn-light btn-sm">&larr; Atrás</a>
                         </div>
                     </div>
                     <div class="card-body">
-                        <form action="{{ route('events.store') }}" method="post">
+                        <form action="{{ route('actividades.store') }}" method="post">
                             @csrf
 
                             <div class="mb-3 row">

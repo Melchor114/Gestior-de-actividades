@@ -23,8 +23,8 @@ class StoreActividadesRequest extends FormRequest
     {
         return [
             'event' => 'required|string|max:255|unique:events,event',
-            'start_date' => 'required|date_format:Y-m-d H:i:s',
-            'end_date' => 'required|date_format:Y-m-d H:i:s|after_or_equal:start_date',
+            'start_date' => 'required',
+            'end_date' => 'required|after_or_equal:start_date',
         ];
     }
 }

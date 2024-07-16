@@ -37,7 +37,7 @@ class HomeController extends Controller
 
     public function create() : View
     {
-        return view('tareas.create');
+        return view('actividades.create');
     }
 
     /**
@@ -55,7 +55,7 @@ class HomeController extends Controller
         // Crear la tarea con los datos combinados
         Event::create($validatedData);
 
-        return redirect()->route('tareas.index')
+        return redirect()->route('actividades.index')
             ->withSuccess('Nueva Tarea agregada.');
     }
 
