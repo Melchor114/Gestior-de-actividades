@@ -1,72 +1,69 @@
 <x-app-layout>
-    <x-slot name="header">
-        <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-            {{ __('Crear Evento') }}
-        </h2>
-    </x-slot>
-
-    <div class="container mt-4">
-        <div class="row justify-content-center">
-            <div class="col-md-8">
-                <div class="card shadow">
-                    <div class="card-header bg-primary text-white">
-                        <div class="float-start">
-                            Agregar Nuevo Evento
-                        </div>
-                        <div class="float-end">
-                            <a href="{{ route('actividades.index') }}" class="btn btn-light btn-sm">&larr; Atrás</a>
-                        </div>
-                    </div>
-                    <div class="card-body">
-                        <form action="{{ route('actividades.store') }}" method="post">
-                            @csrf
-
-                            <div class="mb-3 row">
-                                <label for="event" class="col-md-3 col-form-label text-md-end text-dark">Título del Evento</label>
-                                <div class="col-md-9">
-                                    <input type="text" class="form-control @error('event') is-invalid @enderror" id="event" name="event" value="{{ old('event') }}">
-                                    @error('event')
-                                        <span class="invalid-feedback text-dark" role="alert">
-                                            <strong>{{ $message }}</strong>
-                                        </span>
-                                    @enderror
-                                </div>
-                            </div>
-
-                            <div class="mb-3 row">
-                                <label for="start_date" class="col-md-3 col-form-label text-md-end text-dark">Fecha y Hora de Inicio</label>
-                                <div class="col-md-9">
-                                    <input type="datetime-local" class="form-control @error('start_date') is-invalid @enderror" id="start_date" name="start_date" value="{{ old('start_date') }}">
-                                    @error('start_date')
-                                        <span class="invalid-feedback text-dark" role="alert">
-                                            <strong>{{ $message }}</strong>
-                                        </span>
-                                    @enderror
-                                </div>
-                            </div>
-
-                            <div class="mb-3 row">
-                                <label for="end_date" class="col-md-3 col-form-label text-md-end text-dark">Fecha y Hora de Fin</label>
-                                <div class="col-md-9">
-                                    <input type="datetime-local" class="form-control @error('end_date') is-invalid @enderror" id="end_date" name="end_date" value="{{ old('end_date') }}">
-                                    @error('end_date')
-                                        <span class="invalid-feedback text-dark" role="alert">
-                                            <strong>{{ $message }}</strong>
-                                        </span>
-                                    @enderror
-                                </div>
-                            </div>
-
-                            <div class="mb-3 row">
-                                <div class="col-md-9 offset-md-3">
-                                    <button type="submit" class="btn btn-primary">Agregar Evento</button>
-                                </div>
-                            </div>
-
-                        </form>
-                    </div>
-                </div>
-            </div>
-        </div>
+    <!DOCTYPE html>
+    <html lang="es">
+    <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Efecto al pasar el mouse</title>
+    <style>
+      .contenedor {
+        width: 200px;
+        height: 200px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        font-size: 1.5em;
+        transition: transform 0.3s ease-in-out;
+      }
+    
+      .contenedor:hover {
+        transform: scale(1.1);
+        cursor: pointer;
+      }
+    </style>
+    </head>
+    <body>
+    
+    <div class="contenedor">
+      Pasa el mouse aquí
+    </div>
+    
+    </body>
+    </html>
+    
+    
+    <div data-dial-init class="fixed end-6 bottom-6 group" data-reference="#">
+        <button data-modal-target="crud-modal" data-modal-toggle="crud-modal" class="fixed end-6 bottom-6 flex items-center justify-center text-white bg-blue-700 rounded-full w-14 h-14 hover:bg-blue-800 dark:bg-blue-600 dark:hover:bg-blue-700 focus:ring-4 focus:ring-blue-300 focus:outline-none dark:focus:ring-blue-800">
+            <svg class="w-5 h-5 transition-transform group-hover:rotate-45" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 18 18">
+                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 1v16M1 9h16"/>
+            </svg>
+            <span class="sr-only">Open actions menu</span>
+        </button>
     </div>
 </x-app-layout>
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        const openModalBtn = document.querySelector('[data-modal-toggle="crud-modal"]');
+        const closeModalBtn = document.getElementById('close-modal');
+        const modal = document.getElementById('crud-modal');
+
+        openModalBtn.addEventListener('click', function () {
+            modal.classList.remove('hidden');
+            modal.classList.add('flex'); // Asegura que el modal se muestre centrado
+        });
+
+        closeModalBtn.addEventListener('click', function () {
+            modal.classList.add('hidden');
+            modal.classList.remove('flex');
+        });
+
+        // Event listener to close the modal when clicking outside of it
+        window.addEventListener('click', function (e) {
+            if (e.target == modal) {
+                modal.classList.add('hidden');
+                modal.classList.remove('flex');
+            }
+        });
+    });
+</script>
+
