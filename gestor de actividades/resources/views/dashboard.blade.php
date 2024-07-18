@@ -3,11 +3,9 @@
     
     @php
     $tareas = \App\Models\Tarea::get();
-
     // Verificar si hay tareas pendientes para hoy
     $hoy = \Carbon\Carbon::now()->format('Y-m-d');
     $hayTareasPendientes = false;
-
     foreach ($tareas as $tarea) {
         if ($tarea->fecha == $hoy) {
             $hayTareasPendientes = true;
@@ -97,7 +95,9 @@
     </div>
 </div>
 @php
-    $tareas = \App\Models\Tarea::get();
+$tareasDeHoy = $tareas->filter(function ($tarea) {
+    return $tarea->fecha == \Carbon\Carbon::today()->format('Y-m-d');
+});
 @endphp
 <style>
 .btn-morado {
@@ -108,7 +108,9 @@
       }
 </style>
 
-@foreach ($tareas as $tarea)
+
+
+@foreach ($tareasDeHoy as $tarea)
 <div class="py-4"  id="tarea-{{$tarea->id_tarea}}" data-tarea="{{ json_encode($tarea) }}"> <!-- Ajustar el padding vertical -->
     <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
         <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg p-6 contenedor">
@@ -122,7 +124,7 @@
                         <svg class="h-4 w-4 text-black stroke-current pointer-events-none">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 2 l6 6 M12 2 l-6 6"></path>
                         </svg>
-                    </a>
+                      </a>
                     <span id="completada-{{$tarea->id_tarea}}" class="ml-2 text-gray-700">Completada</span>
                     <script>
                         document.addEventListener('DOMContentLoaded', function () {
