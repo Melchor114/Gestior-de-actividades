@@ -15,6 +15,11 @@ class Tarea extends Model
         'descripcion',
         'fecha',
         'hora',
-        'prioridad'
+        'prioridad',
+        'user_id'
     ];
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
 }

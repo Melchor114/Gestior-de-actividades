@@ -8,7 +8,9 @@ use Illuminate\View\View;
 use Illuminate\Http\Request;
 use Illuminate\Http\RedirectResponse;
 use AuthorizesRequests;
+use Illuminate\Support\Facades\Auth;
 class HomeController extends Controller
+
 {
     /**
      * Apply the auth middleware to all routes in this controller.
@@ -23,7 +25,7 @@ class HomeController extends Controller
      */
     public function index() : View
     {
-        $allevents = Event::all();
+        $allevents =  Event::where('user_id', Auth::id())->get();
         $events = $allevents->map(function ($event) {
             return [
                 'title' => $event->event,
@@ -51,6 +53,8 @@ class HomeController extends Controller
         if ($request->fecha && $request->hora) {
             $validatedData['fecha_hora'] = $request->fecha . ' ' . $request->hora;
         }
+
+        $validatedData['user_id'] = Auth::id();
 
         // Crear la tarea con los datos combinados
         Event::create($validatedData);

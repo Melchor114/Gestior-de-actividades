@@ -22,7 +22,7 @@
                     </x-nav-link>
                 </div>
                 <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
-                    <x-nav-link :href="route('tareas.index')" :active="request()->routeIs('tareas.index')">
+                    <x-nav-link :href="route('buzon.index')" :active="request()->routeIs('buzon.index')">
                         {{ __('BANDEJA') }}
                     </x-nav-link>
                 </div>

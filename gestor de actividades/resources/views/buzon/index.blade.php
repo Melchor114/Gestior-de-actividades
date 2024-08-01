@@ -1,19 +1,5 @@
-
 <x-app-layout>
-    
-    @php
-    $tareas = \App\Models\Tarea::where('user_id', Auth::id())->get();
-    // Verificar si hay tareas pendientes para hoy
-    $hoy = \Carbon\Carbon::now()->format('Y-m-d');
-    $hayTareasPendientes = false;
-    foreach ($tareas as $tarea) {
-        if ($tarea->fecha == $hoy) {
-            $hayTareasPendientes = true;
-            break;
-        }
-    }
-    @endphp
-    <style>
+<style>
         /* Estilos actualizados para la notificación */
         .toast-container {
             position: fixed;
@@ -54,51 +40,11 @@
             margin-left: 1rem;
         }
     </style>
-        <!-- Notificación de tareas pendientes para hoy -->
-        @if ($hayTareasPendientes)
-        <div class="toast-container">
-            <div class="toast">
-                <div class="toast-icon">
-                    <svg class="w-6 h-6 text-red-500" xmlns="http://www.w3.org/2000/svg" fill="none"
-                        viewBox="0 0 24 24" stroke="currentColor">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                            d="M12 2C6.48 2 2 6.48 2 12c0 5.52 4.48 10 10 10 5.52 0 10-4.48 10-10 0-5.52-4.48-10-10-10zM11 15h2v2h-2v-2zm0-8h2v6h-2V7z" />
-                    </svg>
-                </div>
-                <div class="toast-content">
-                    <div class="font-semibold">Tienes tareas pendientes para hoy</div>
-                    <div class="text-sm text-gray-600">{{ \Carbon\Carbon::now()->format('d-m-Y') }}</div>
-                </div>
-                <div class="toast-close" onclick="closeToast()">
-                    <svg class="w-4 h-4 text-gray-500" xmlns="http://www.w3.org/2000/svg" fill="none"
-                        viewBox="0 0 24 24" stroke="currentColor">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                            d="M6 18L18 6M6 6l12 12" />
-                    </svg>
-                </div>
-            </div>
-        </div>
-    @endif
     <x-slot name="header">
         <h2 class="font-semibold text-xl text-gray-800 leading-tight">
             {{ __("Welcome to RAM IA!") }}
         </h2>        
     </x-slot>
-<div class="py-4"> <!-- Ajustar el padding vertical -->
-    <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-        <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
-            <div class="p-6 text-gray-900 bg-or">
-                {{ __("HOY!") }}
-                <p class="text-sm text-gray-600">{{ \Carbon\Carbon::now()->format('d-m-Y') }}</p>
-            </div>
-        </div>
-    </div>
-</div>
-@php
-$tareasDeHoy = $tareas->filter(function ($tarea) {
-    return $tarea->fecha == \Carbon\Carbon::today()->format('Y-m-d');
-});
-@endphp
 <style>
 .btn-morado {
     background-color: purple; /* Cambia el color de fondo a morado */
@@ -107,52 +53,246 @@ $tareasDeHoy = $tareas->filter(function ($tarea) {
         cursor: pointer;
       }
 </style>
-
-
-
-@foreach ($tareasDeHoy as $tarea)
-<div class="py-4"  id="tarea-{{$tarea->id_tarea}}" data-tarea="{{ json_encode($tarea) }}"> <!-- Ajustar el padding vertical -->
-    <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-        <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg p-6 contenedor">
-            <div class="flex justify-between items-center mb-4">
-                <div>
-                    <h3 class="text-lg font-semibold text-gray-800">{{$tarea->nombre}}</h3>
-                    <p class="text-gray-700">{{$tarea->descripcion}}</p>
-                </div>
-                <div class="flex items-center ml-4">
-                    <a href="{{ route('eliminar_tarea',['id'=>$tarea->id_tarea]) }}" id="btn-completada-{{$tarea->id_tarea}}" style="background-color: white; border: 2px solid black; width: 20px; height: 20px; border-radius: 50%;">
-                        <svg class="h-4 w-4 text-black stroke-current pointer-events-none">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 2 l6 6 M12 2 l-6 6"></path>
+        @if ($hayTareasPasadas)
+            <div class="toast-container">
+                <div class="toast">
+                    <div class="toast-icon">
+                        <svg class="w-6 h-6 text-red-500" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 2C6.48 2 2 6.48 2 12c0 5.52 4.48 10 10 10 5.52 0 10-4.48 10-10 0-5.52-4.48-10-10-10zM11 15h2v2h-2v-2zm0-8h2v6h-2V7z" />
                         </svg>
-                      </a>
-                    <span id="completada-{{$tarea->id_tarea}}" class="ml-2 text-gray-700">Completada</span>
-                    <script>
-                        document.addEventListener('DOMContentLoaded', function () {
-                            const btn{{$tarea->id_tarea}} = document.getElementById('btn-completada-{{$tarea->id_tarea}}');
-
-                            btn{{$tarea->id_tarea}}.addEventListener('click', function (event) {
-                                event.preventDefault(); // Evitar que el enlace redirija
-                                event.stopPropagation();
-
-                                // Cambiar el color a morado y agregar la clase
-                                btn{{$tarea->id_tarea}}.style.backgroundColor = 'purple';
-                                btn{{$tarea->id_tarea}}.classList.add('btn-morado');
-
-                                // Eliminar la tarea al hacer clic en "Completada"
-                                window.location.href = "{{ route('eliminar_tarea',['id'=>$tarea->id_tarea]) }}";
-                            });
-                        });
-                    </script>
+                    </div>
+                    <div class="toast-content">
+                        <div class="font-semibold">Tienes Tareas Pasadas</div>
+                        <div class="text-sm text-gray-600">{{ \Carbon\Carbon::now()->format('d-m-Y') }}</div>
+                    </div>
+                    <div class="toast-close" onclick="closeToast()">
+                        <svg class="w-4 h-4 text-gray-500" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+                        </svg>
+                    </div>
                 </div>
             </div>
-            <div>
-                <p class="text-sm text-gray-600">{{$tarea->fecha}} - {{$tarea->hora}}</p>
-            </div>
-        </div>
-    </div>
-</div>
-@endforeach
+        @endif
 
+        @if ($tareasPasadas->isNotEmpty())
+            <div class="py-4"> <!-- Ajustar el padding vertical -->
+                <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
+                    <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
+                        <div class="p-6 text-red-500 bg-or">
+                            {{ __("PASADAS!") }}
+                        </div>
+                    </div>
+                </div>
+            </div>
+            @foreach ($tareasPasadas as $tarea)
+            <div class="py-4" id="tarea-{{$tarea->id_tarea}}" data-tarea="{{ json_encode($tarea) }}"> <!-- Ajustar el padding vertical -->
+                <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
+                    <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg p-6 contenedor">
+                        <div class="flex justify-between items-center mb-4">
+                            <div>
+                                <h3 class="text-lg font-semibold text-gray-800">{{$tarea->nombre}}</h3>
+                                <p class="text-gray-700">{{$tarea->descripcion}}</p>
+                            </div>
+                            <div class="flex items-center ml-4">
+                                <a href="{{ route('eliminar_tarea',['id'=>$tarea->id_tarea]) }}" id="btn-completada-{{$tarea->id_tarea}}" style="background-color: white; border: 2px solid black; width: 20px; height: 20px; border-radius: 50%;">
+                                    <svg class="h-4 w-4 text-black stroke-current pointer-events-none">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 2 l6 6 M12 2 l-6 6"></path>
+                                    </svg>
+                                </a>
+                                <span id="completada-{{$tarea->id_tarea}}" class="ml-2 text-gray-700">Completada</span>
+                                <script>
+                                    document.addEventListener('DOMContentLoaded', function () {
+                                        const btn{{$tarea->id_tarea}} = document.getElementById('btn-completada-{{$tarea->id_tarea}}');
+
+                                        btn{{$tarea->id_tarea}}.addEventListener('click', function (event) {
+                                            event.preventDefault(); // Evitar que el enlace redirija
+                                            event.stopPropagation();
+
+                                            // Cambiar el color a morado y agregar la clase
+                                            btn{{$tarea->id_tarea}}.style.backgroundColor = 'purple';
+                                            btn{{$tarea->id_tarea}}.classList.add('btn-morado');
+
+                                            // Eliminar la tarea al hacer clic en "Completada"
+                                            window.location.href = "{{ route('eliminar_tarea',['id'=>$tarea->id_tarea]) }}";
+                                        });
+                                    });
+                                </script>
+                            </div>
+                        </div>
+                        <div>
+                            <p class="text-sm text-gray-600">{{$tarea->fecha}} - {{$tarea->hora}}</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            @endforeach
+        @endif
+
+        @if ($tareasHoy->isNotEmpty())
+                <div class="py-4"> <!-- Ajustar el padding vertical -->
+                    <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
+                        <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
+                            <div class="p-6 text-red-500 bg-or">
+                                {{ __("HOY!") }}
+                                <p class="text-sm text-red-500">{{ \Carbon\Carbon::now()->format('d-m-Y') }}</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                @foreach ($tareasHoy as $tarea)
+                    <div class="py-4" id="tarea-{{$tarea->id_tarea}}" data-tarea="{{ json_encode($tarea) }}">
+                        <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
+                            <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg p-6 contenedor">
+                                <div class="flex justify-between items-center mb-4">
+                                    <div>
+                                        <h3 class="text-lg font-semibold text-gray-800">{{$tarea->nombre}}</h3>
+                                        <p class="text-gray-700">{{$tarea->descripcion}}</p>
+                                    </div>
+                                    <div class="flex items-center ml-4">
+                                        <a href="{{ route('eliminar_tarea',['id'=>$tarea->id_tarea]) }}" id="btn-completada-{{$tarea->id_tarea}}" style="background-color: white; border: 2px solid black; width: 20px; height: 20px; border-radius: 50%;">
+                                            <svg class="h-4 w-4 text-black stroke-current pointer-events-none">
+                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 2 l6 6 M12 2 l-6 6"></path>
+                                            </svg>
+                                        </a>
+                                        <span id="completada-{{$tarea->id_tarea}}" class="ml-2 text-gray-700">Completada</span>
+                                        <script>
+                                            document.addEventListener('DOMContentLoaded', function () {
+                                                const btn{{$tarea->id_tarea}} = document.getElementById('btn-completada-{{$tarea->id_tarea}}');
+
+                                                btn{{$tarea->id_tarea}}.addEventListener('click', function (event) {
+                                                    event.preventDefault(); // Evitar que el enlace redirija
+                                                    event.stopPropagation();
+
+                                                    // Cambiar el color a morado y agregar la clase
+                                                    btn{{$tarea->id_tarea}}.style.backgroundColor = 'purple';
+                                                    btn{{$tarea->id_tarea}}.classList.add('btn-morado');
+
+                                                    // Eliminar la tarea al hacer clic en "Completada"
+                                                    window.location.href = "{{ route('eliminar_tarea',['id'=>$tarea->id_tarea]) }}";
+                                                });
+                                            });
+                                        </script>
+                                    </div>
+                                </div>
+                                <div>
+                                    <p class="text-sm text-gray-600">{{$tarea->fecha}} - {{$tarea->hora}}</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+            @endforeach
+        @endif
+        
+        <!-- Sección de mañana -->
+        @if ($tareasMañana->isNotEmpty())
+                <div class="py-4"> <!-- Ajustar el padding vertical -->
+                    <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
+                        <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
+                            <div class="p-6 text-red-500 bg-or">
+                                {{ __("MAÑANA!") }}
+                                <p class="text-sm text-red-500">{{ \Carbon\Carbon::now()->format('d-m-Y') }}</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                @foreach ($tareasMañana as $tarea)
+                    <div class="py-4" id="tarea-{{$tarea->id_tarea}}" data-tarea="{{ json_encode($tarea) }}">
+                        <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
+                            <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg p-6 contenedor">
+                                <div class="flex justify-between items-center mb-4">
+                                    <div>
+                                        <h3 class="text-lg font-semibold text-gray-800">{{$tarea->nombre}}</h3>
+                                        <p class="text-gray-700">{{$tarea->descripcion}}</p>
+                                    </div>
+                                    <div class="flex items-center ml-4">
+                                        <a href="{{ route('eliminar_tarea',['id'=>$tarea->id_tarea]) }}" id="btn-completada-{{$tarea->id_tarea}}" style="background-color: white; border: 2px solid black; width: 20px; height: 20px; border-radius: 50%;">
+                                            <svg class="h-4 w-4 text-black stroke-current pointer-events-none">
+                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 2 l6 6 M12 2 l-6 6"></path>
+                                            </svg>
+                                        </a>
+                                        <span id="completada-{{$tarea->id_tarea}}" class="ml-2 text-gray-700">Completada</span>
+                                        <script>
+                                            document.addEventListener('DOMContentLoaded', function () {
+                                                const btn{{$tarea->id_tarea}} = document.getElementById('btn-completada-{{$tarea->id_tarea}}');
+
+                                                btn{{$tarea->id_tarea}}.addEventListener('click', function (event) {
+                                                    event.preventDefault(); // Evitar que el enlace redirija
+                                                    event.stopPropagation();
+
+                                                    // Cambiar el color a morado y agregar la clase
+                                                    btn{{$tarea->id_tarea}}.style.backgroundColor = 'purple';
+                                                    btn{{$tarea->id_tarea}}.classList.add('btn-morado');
+
+                                                    // Eliminar la tarea al hacer clic en "Completada"
+                                                    window.location.href = "{{ route('eliminar_tarea',['id'=>$tarea->id_tarea]) }}";
+                                                });
+                                            });
+                                        </script>
+                                    </div>
+                                </div>
+                                <div>
+                                    <p class="text-sm text-gray-600">{{$tarea->fecha}} - {{$tarea->hora}}</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+            @endforeach
+        @endif
+
+        <!-- Sección de futuras -->
+        @if ($tareasFuturas->isNotEmpty())
+                <div class="py-4"> <!-- Ajustar el padding vertical -->
+                    <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
+                        <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
+                            <div class="p-6 text-red-500 bg-or">
+                                {{ __("FUTURAS!") }}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                @foreach ($tareasFuturas as $tarea)
+                <div class="py-4"  id="tarea-{{$tarea->id_tarea}}" data-tarea="{{ json_encode($tarea) }}"> <!-- Ajustar el padding vertical -->
+                    <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
+                        <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg p-6 contenedor">
+                            <div class="flex justify-between items-center mb-4">
+                                <div>
+                                    <h3 class="text-lg font-semibold text-gray-800">{{$tarea->nombre}}</h3>
+                                    <p class="text-gray-700">{{$tarea->descripcion}}</p>
+                                </div>
+                                <div class="flex items-center ml-4">
+                                    <a href="{{ route('eliminar_tarea',['id'=>$tarea->id_tarea]) }}" id="btn-completada-{{$tarea->id_tarea}}" style="background-color: white; border: 2px solid black; width: 20px; height: 20px; border-radius: 50%;">
+                                        <svg class="h-4 w-4 text-black stroke-current pointer-events-none">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 2 l6 6 M12 2 l-6 6"></path>
+                                        </svg>
+                                      </a>
+                                    <span id="completada-{{$tarea->id_tarea}}" class="ml-2 text-gray-700">Completada</span>
+                                    <script>
+                                        document.addEventListener('DOMContentLoaded', function () {
+                                            const btn{{$tarea->id_tarea}} = document.getElementById('btn-completada-{{$tarea->id_tarea}}');
+                
+                                            btn{{$tarea->id_tarea}}.addEventListener('click', function (event) {
+                                                event.preventDefault(); // Evitar que el enlace redirija
+                                                event.stopPropagation();
+                
+                                                // Cambiar el color a morado y agregar la clase
+                                                btn{{$tarea->id_tarea}}.style.backgroundColor = 'purple';
+                                                btn{{$tarea->id_tarea}}.classList.add('btn-morado');
+                
+                                                // Eliminar la tarea al hacer clic en "Completada"
+                                                window.location.href = "{{ route('eliminar_tarea',['id'=>$tarea->id_tarea]) }}";
+                                            });
+                                        });
+                                    </script>
+                                </div>
+                            </div>
+                            <div>
+                                <p class="text-sm text-gray-600">{{$tarea->fecha}} - {{$tarea->hora}}</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            @endforeach
+        @endif
 
 <div id="crud-modales" tabindex="-1" aria-hidden="true" class="hidden fixed inset-0 z-50 flex justify-center items-center bg-black bg-opacity-50">
     <div class="relative p-4 w-full max-w-md max-h-full">

@@ -6,6 +6,7 @@ use App\Http\Controllers\HomeController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\TareaController;
+use App\Http\Controllers\BuzonController;
 use App\Models\Event;
 use App\Models\Tarea;
 use App\Models\Home;
@@ -19,11 +20,13 @@ Route::get('/dashboard', function () {
     return view('dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');
 
+
 Route::resource('tareas', TareaController::class);
 Route::get('/tareas/eliminar/{id}', [TareaController::class, 'eliminar_tarea'])->name('eliminar_tarea');
 
 
 Route::resource('actividades', HomeController::class)->middleware('auth');
+Route::resource('buzon', BuzonController::class)->middleware('auth');
 Route::apiResource("actividades", HomeController::class);
 Route::apiResource("actividades", Controller::class);
 Route::apiResource("/actividades", HomeController::class);

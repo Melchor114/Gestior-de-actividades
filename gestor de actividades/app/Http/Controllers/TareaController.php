@@ -3,11 +3,13 @@
 namespace App\Http\Controllers;
 
 use App\Models\Tarea;
+use App\Models\Event;
 use App\Http\Requests\StoreTareaRequest;
 use App\Http\Requests\UpdateTareaRequest;
 use Illuminate\Http\JsonResponse;
 use Illuminate\View\View;
 use Illuminate\Http\RedirectResponse;
+use Illuminate\Support\Facades\Auth;
 
 class TareaController extends Controller
 {
@@ -16,9 +18,8 @@ class TareaController extends Controller
      */
     public function index() : View
     {
-        return view('tareas.index', [
-            'tareas' => Tarea::latest()->paginate(4)
-        ]);
+        $tareas = Tarea::where('user_id', Auth::id())->get();
+        return view('tareas.index', compact('tareas'));
     }
 
     /**
@@ -41,20 +42,34 @@ class TareaController extends Controller
             $validatedData['fecha_hora'] = $request->fecha . ' ' . $request->hora;
         }
 
+        $validatedData['user_id'] = Auth::id();
+
         // Crear la tarea con los datos combinados
         Tarea::create($validatedData);
 
-        return redirect()->route('dashboard')
+        // Crear un evento en el calendario
+        $startDate = $validatedData['fecha_hora'];
+        $endDate = $request->fecha . ' 23:59:59'; // Fin del día
+
+        Event::create([
+            'event' => $validatedData['nombre'],
+            'start_date' => $startDate,
+            'end_date' => $endDate,
+            'user_id' => $validatedData['user_id'],
+        ]);
+
+        return redirect()->back()
             ->withSuccess('Nueva Tarea agregada.');
     }
-
-
 
     /**
      * Display the specified resource.
      */
     public function show(Tarea $tarea) : View
     {
+        if ($tarea->user_id !== Auth::id()) {
+            abort(403, 'No autorizado.');
+        }
         return view('tareas.show', compact('tarea'));
     }
 
@@ -63,6 +78,9 @@ class TareaController extends Controller
      */
     public function edit(Tarea $tarea) : View
     {
+        if ($tarea->user_id !== Auth::id()) {
+            abort(403, 'No autorizado.');
+        }
         return view('tareas.edit', compact('tarea'));
     }
 
@@ -71,6 +89,10 @@ class TareaController extends Controller
      */
     public function update(UpdateTareaRequest $request, Tarea $tarea) : RedirectResponse
     {
+        if ($tarea->user_id !== Auth::id()) {
+            abort(403, 'No autorizado.');
+        }
+
         $tarea->update($request->validated());
 
         return redirect()->back()
@@ -82,6 +104,9 @@ class TareaController extends Controller
      */
     public function destroy(Tarea $tarea) : JsonResponse
     {
+        if ($tarea->user_id !== Auth::id()) {
+            abort(403, 'No autorizado.');
+        }
         $tarea->delete();
     
         return response()->json(['message' => 'Tarea eliminada correctamente']);
@@ -90,8 +115,8 @@ class TareaController extends Controller
     public function eliminar_tarea($id){
         //eliminamos un registro de la bd
         Tarea::where(['id_tarea'=>$id])->delete();
-        return redirect()->route('dashboard')
+        return redirect()->back()
         ->withSuccess('Tarea Eliminada.');;     
-}
+    }
     
 }
