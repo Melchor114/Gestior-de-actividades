@@ -1,3 +1,92 @@
+<style>
+    /* Basic reset */
+    body, table {
+        margin: 0;
+        padding: 0;
+        border: 0;
+        box-sizing: border-box;
+    }
+
+    /* Container styling */
+    .table-container {
+        max-width: 800px;
+        margin: 20px auto;
+        padding: 10px;
+        background-color: #f9f9f9;
+        border-radius: 8px;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    }
+
+    /* Table styling */
+    table {
+        width: 100%;
+        border-collapse: collapse;
+        font-family: Arial, sans-serif;
+        color: #333;
+    }
+
+    /* Header styling */
+    th {
+        background-color: #4CAF50;
+        color: white;
+        padding: 12px;
+        text-align: left;
+        border-bottom: 2px solid #ddd;
+    }
+
+    /* Row styling */
+    td {
+        padding: 12px;
+        text-align: left;
+        border-bottom: 1px solid #ddd;
+    }
+
+    /* Zebra striping for rows */
+    tbody tr:nth-child(even) {
+        background-color: #f2f2f2;
+    }
+
+    /* Hover effect */
+    tbody tr:hover {
+        background-color: #e0f7fa;
+    }
+
+    /* Responsive design */
+    @media (max-width: 600px) {
+        table, thead, tbody, th, td, tr {
+            display: block;
+        }
+        th {
+            position: absolute;
+            top: -9999px;
+            left: -9999px;
+        }
+        tr {
+            border: 1px solid #ddd;
+            margin-bottom: 10px;
+            display: block;
+            border-radius: 4px;
+            overflow: hidden;
+        }
+        td {
+            border: none;
+            position: relative;
+            padding-left: 50%;
+            text-align: right;
+        }
+        td::before {
+            content: attr(data-label);
+            position: absolute;
+            left: 0;
+            width: 50%;
+            padding-left: 10px;
+            font-weight: bold;
+            color: #555;
+        }
+    }
+</style>
+
+
 <x-app-layout>
     <x-slot name="header">
         <h2 class="font-semibold text-xl text-gray-800 leading-tight">
@@ -32,25 +121,38 @@
         <script src="https://unpkg.com/tippy.js@6"></script>
         <script src="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.15/index.global.min.js"></script>
 
-        <script>
-            document.addEventListener('DOMContentLoaded', function() {
-                const calendarEl = document.getElementById('calendar');
-                const calendar = new FullCalendar.Calendar(calendarEl, {
-                    initialView: 'timeGridWeek',
-                    slotMinTime: '00:00:00',
-                    slotMaxTime: '24:00:00',
-                    events: @json($events),
-                    eventDidMount: function(info) {
-                        // Use tippy.js to create tooltips
-                        tippy(info.el, {
-                            content: info.event.title, // Use the event's title as tooltip content
-                        });
-                    }
-                });
-                calendar.render();
-            });
-        </script>
         @endpush
+    </div>
+
+    <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
+        <div class="p-6 text-gray-900">
+            <div class="table-container">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Title</th>
+                            <th>Start Date</th>
+                            <th>End Date</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @if(count($events) > 0)
+                        @foreach ($events as $event)
+                        <tr>
+                            <td>{{$event->summary}}</td>
+                            <td>{{$event->start ? \Carbon\Carbon::parse($event->start->dateTime)->setTimezone('America/Monterrey')->format('D d-m-Y H:i:s'): ''}}</td>
+                            <td>{{$event->start ? \Carbon\Carbon::parse($event->end->dateTime)->setTimezone('America/Monterrey')->format('D d-m-Y H:i:s'): ''}}</td>
+                        </tr>
+                        @endforeach
+                        @else
+                        <tr>
+                            <td colspan="3" class="text-center text-gray-600">No Events Found</td>
+                        </tr>
+                        @endif
+                    </tbody>
+                </table>
+            </div>
+        </div>
     </div>
     <div data-dial-init class="fixed end-6 bottom-6 group" data-reference="#">
         <button data-modal-target="crud-modal" data-modal-toggle="crud-modal" class="fixed end-6 bottom-6 flex items-center justify-center text-white bg-blue-700 rounded-full w-14 h-14 hover:bg-blue-800 dark:bg-blue-600 dark:hover:bg-blue-700 focus:ring-4 focus:ring-blue-300 focus:outline-none dark:focus:ring-blue-800">
@@ -78,7 +180,7 @@
                 </div>
                 <!-- Body del modal -->
                 <div class="p-4 md:p-5">
-                    <form action="{{ route('actividades.store') }}" method="post">
+                    <form action="{{ route('events.store') }}" method="post">
                         @csrf
                         <div class="grid gap-4 mb-4">
                             <div>
