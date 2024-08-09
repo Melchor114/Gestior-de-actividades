@@ -1,0 +1,6 @@
+{
+    "require": {
+        "google/apiclient": "2.15.0",
+        "laravel/socialite": "^5.15"
+    }
+}

@@ -1,92 +1,3 @@
-<style>
-    /* Basic reset */
-    body, table {
-        margin: 0;
-        padding: 0;
-        border: 0;
-        box-sizing: border-box;
-    }
-
-    /* Container styling */
-    .table-container {
-        max-width: 800px;
-        margin: 20px auto;
-        padding: 10px;
-        background-color: #f9f9f9;
-        border-radius: 8px;
-        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-    }
-
-    /* Table styling */
-    table {
-        width: 100%;
-        border-collapse: collapse;
-        font-family: Arial, sans-serif;
-        color: #333;
-    }
-
-    /* Header styling */
-    th {
-        background-color: #4CAF50;
-        color: white;
-        padding: 12px;
-        text-align: left;
-        border-bottom: 2px solid #ddd;
-    }
-
-    /* Row styling */
-    td {
-        padding: 12px;
-        text-align: left;
-        border-bottom: 1px solid #ddd;
-    }
-
-    /* Zebra striping for rows */
-    tbody tr:nth-child(even) {
-        background-color: #f2f2f2;
-    }
-
-    /* Hover effect */
-    tbody tr:hover {
-        background-color: #e0f7fa;
-    }
-
-    /* Responsive design */
-    @media (max-width: 600px) {
-        table, thead, tbody, th, td, tr {
-            display: block;
-        }
-        th {
-            position: absolute;
-            top: -9999px;
-            left: -9999px;
-        }
-        tr {
-            border: 1px solid #ddd;
-            margin-bottom: 10px;
-            display: block;
-            border-radius: 4px;
-            overflow: hidden;
-        }
-        td {
-            border: none;
-            position: relative;
-            padding-left: 50%;
-            text-align: right;
-        }
-        td::before {
-            content: attr(data-label);
-            position: absolute;
-            left: 0;
-            width: 50%;
-            padding-left: 10px;
-            font-weight: bold;
-            color: #555;
-        }
-    }
-</style>
-
-
 <x-app-layout>
     <x-slot name="header">
         <h2 class="font-semibold text-xl text-gray-800 leading-tight">
@@ -101,11 +12,9 @@
 
         @push('styles')
         <style>
-            /* Change the color of the calendar text */
             #calendar {
                 color: rgb(0, 0, 0); /* Change this to your desired color */
             }
-            /* Additional customization */
             .fc .fc-daygrid-event {
                 color: rgb(0, 0, 0); /* Change event text color */
             }
@@ -116,44 +25,33 @@
         @endpush
 
         @push('scripts')
-        <!-- Include tippy.js for tooltips -->
-        <script src="https://unpkg.com/@popperjs/core@2"></script>
-        <script src="https://unpkg.com/tippy.js@6"></script>
         <script src="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.15/index.global.min.js"></script>
 
+        <script>
+            document.addEventListener('DOMContentLoaded', function() {
+                var calendarEl = document.getElementById('calendar');
+                var events = {!! json_encode($events->toArray()) !!};
+                
+                var formattedEvents = events.map(function(event) {
+                    return {
+                        title: event.summary,
+                        start: event.start,
+                        end: event.end,
+                    };
+                });
+
+                var calendar = new FullCalendar.Calendar(calendarEl, {
+                    initialView: 'dayGridMonth',
+                    events: formattedEvents
+                });
+
+                calendar.render();
+            });
+        </script>
         @endpush
     </div>
 
-    <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-        <div class="p-6 text-gray-900">
-            <div class="table-container">
-                <table>
-                    <thead>
-                        <tr>
-                            <th>Title</th>
-                            <th>Start Date</th>
-                            <th>End Date</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        @if(count($events) > 0)
-                        @foreach ($events as $event)
-                        <tr>
-                            <td>{{$event->summary}}</td>
-                            <td>{{$event->start ? \Carbon\Carbon::parse($event->start->dateTime)->setTimezone('America/Monterrey')->format('D d-m-Y H:i:s'): ''}}</td>
-                            <td>{{$event->start ? \Carbon\Carbon::parse($event->end->dateTime)->setTimezone('America/Monterrey')->format('D d-m-Y H:i:s'): ''}}</td>
-                        </tr>
-                        @endforeach
-                        @else
-                        <tr>
-                            <td colspan="3" class="text-center text-gray-600">No Events Found</td>
-                        </tr>
-                        @endif
-                    </tbody>
-                </table>
-            </div>
-        </div>
-    </div>
+    <!-- Código del modal para agregar eventos -->
     <div data-dial-init class="fixed end-6 bottom-6 group" data-reference="#">
         <button data-modal-target="crud-modal" data-modal-toggle="crud-modal" class="fixed end-6 bottom-6 flex items-center justify-center text-white bg-blue-700 rounded-full w-14 h-14 hover:bg-blue-800 dark:bg-blue-600 dark:hover:bg-blue-700 focus:ring-4 focus:ring-blue-300 focus:outline-none dark:focus:ring-blue-800">
             <svg class="w-5 h-5 transition-transform group-hover:rotate-45" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 18 18">
@@ -185,7 +83,7 @@
                         <div class="grid gap-4 mb-4">
                             <div>
                                 <label for="event" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Título del Evento</label>
-                                <input type="text"  id="event" name="event" value="{{ old('event') }}" class="bg-gray-50 border border-gray-300 text-black text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 placeholder-gray-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500" required>
+                                <input type="text" id="event" name="event" value="{{ old('event') }}" class="bg-gray-50 border border-gray-300 text-black text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 placeholder-gray-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500" required>
                                 @error('event')
                                     <span class="invalid-feedback text-dark" role="alert">
                                         <strong>{{ $message }}</strong>
@@ -221,29 +119,3 @@
         </div>
     </div>
 </x-app-layout>
-
-<script>
-    document.addEventListener('DOMContentLoaded', function () {
-        const openModalBtn = document.querySelector('[data-modal-toggle="crud-modal"]');
-        const closeModalBtn = document.getElementById('close-modal');
-        const modal = document.getElementById('crud-modal');
-
-        openModalBtn.addEventListener('click', function () {
-            modal.classList.remove('hidden');
-            modal.classList.add('flex'); // Asegura que el modal se muestre centrado
-        });
-
-        closeModalBtn.addEventListener('click', function () {
-            modal.classList.add('hidden');
-            modal.classList.remove('flex');
-        });
-
-        // Event listener to close the modal when clicking outside of it
-        window.addEventListener('click', function (e) {
-            if (e.target == modal) {
-                modal.classList.add('hidden');
-                modal.classList.remove('flex');
-            }
-        });
-    });
-</script>
