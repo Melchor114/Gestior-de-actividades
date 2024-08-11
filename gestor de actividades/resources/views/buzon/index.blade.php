@@ -151,7 +151,6 @@
                                     <div class="flex items-center ml-4">
                                         <a href="{{ route('eliminar_tarea',['id'=>$tarea->id_tarea]) }}" id="btn-completada-{{$tarea->id_tarea}}" style="background-color: white; border: 2px solid black; width: 20px; height: 20px; border-radius: 50%;">
                                             <svg class="h-4 w-4 text-black stroke-current pointer-events-none">
-                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 2 l6 6 M12 2 l-6 6"></path>
                                             </svg>
                                         </a>
                                         <span id="completada-{{$tarea->id_tarea}}" class="ml-2 text-gray-700">Completada</span>
@@ -207,7 +206,6 @@
                                     <div class="flex items-center ml-4">
                                         <a href="{{ route('eliminar_tarea',['id'=>$tarea->id_tarea]) }}" id="btn-completada-{{$tarea->id_tarea}}" style="background-color: white; border: 2px solid black; width: 20px; height: 20px; border-radius: 50%;">
                                             <svg class="h-4 w-4 text-black stroke-current pointer-events-none">
-                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 2 l6 6 M12 2 l-6 6"></path>
                                             </svg>
                                         </a>
                                         <span id="completada-{{$tarea->id_tarea}}" class="ml-2 text-gray-700">Completada</span>
@@ -262,7 +260,6 @@
                                 <div class="flex items-center ml-4">
                                     <a href="{{ route('eliminar_tarea',['id'=>$tarea->id_tarea]) }}" id="btn-completada-{{$tarea->id_tarea}}" style="background-color: white; border: 2px solid black; width: 20px; height: 20px; border-radius: 50%;">
                                         <svg class="h-4 w-4 text-black stroke-current pointer-events-none">
-                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 2 l6 6 M12 2 l-6 6"></path>
                                         </svg>
                                       </a>
                                     <span id="completada-{{$tarea->id_tarea}}" class="ml-2 text-gray-700">Completada</span>

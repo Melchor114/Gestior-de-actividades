@@ -48,8 +48,6 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/google/redirect', [SocialController::class, 'OpenGoogleAccountDetails'])->name('google.callback');
     Route::post('/events', [CalendarController::class, 'storeEvent'])->name('events.store');
 
-
-
 });
 
 // Route model binding example for 'tareas'

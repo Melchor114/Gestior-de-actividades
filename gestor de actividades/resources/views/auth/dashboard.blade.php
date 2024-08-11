@@ -122,7 +122,6 @@ $tareasDeHoy = $tareas->filter(function ($tarea) {
                 <div class="flex items-center ml-4">
                     <a href="{{ route('eliminar_tarea',['id'=>$tarea->id_tarea]) }}" id="btn-completada-{{$tarea->id_tarea}}" style="background-color: white; border: 2px solid black; width: 20px; height: 20px; border-radius: 50%;">
                         <svg class="h-4 w-4 text-black stroke-current pointer-events-none">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 2 l6 6 M12 2 l-6 6"></path>
                         </svg>
                       </a>
                     <span id="completada-{{$tarea->id_tarea}}" class="ml-2 text-gray-700">Completada</span>
@@ -315,7 +314,7 @@ $tareasDeHoy = $tareas->filter(function ($tarea) {
                         <!-- Contenedor para fecha y hora -->
                         <div class="flex space-x-4">
                             <div class="w-1/2">
-                                <label for="fecha" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Fecha</label>
+                                <label for="fecha" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Fecha de Inicio</label>
                                 <input type="date" name="fecha" id="fecha" class="bg-gray-50 border border-gray-300 text-black text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 placeholder-gray-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500" value="{{ old('fecha') }}" required>
                                 @error('fecha')
                                     <span class="invalid-feedback text-dark" role="alert">

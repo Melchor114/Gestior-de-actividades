@@ -118,4 +118,29 @@
             </div>
         </div>
     </div>
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const openModalBtn = document.querySelector('[data-modal-toggle="crud-modal"]');
+            const closeModalBtn = document.getElementById('close-modal');
+            const modal = document.getElementById('crud-modal');
+    
+            openModalBtn.addEventListener('click', function () {
+                modal.classList.remove('hidden');
+                modal.classList.add('flex'); // Asegura que el modal se muestre centrado
+            });
+    
+            closeModalBtn.addEventListener('click', function () {
+                modal.classList.add('hidden');
+                modal.classList.remove('flex');
+            });
+    
+            // Event listener to close the modal when clicking outside of it
+            window.addEventListener('click', function (e) {
+                if (e.target == modal) {
+                    modal.classList.add('hidden');
+                    modal.classList.remove('flex');
+                }
+            });
+        });
+    </script>
 </x-app-layout>

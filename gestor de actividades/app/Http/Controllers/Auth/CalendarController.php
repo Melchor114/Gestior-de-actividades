@@ -10,8 +10,41 @@ use Google_Service_Calendar;
 
 class CalendarController extends Controller
 {
+    public function getEventDetails($id)
+    {
+        $user = auth()->user();
+        $refreshToken = $user->google_refresh_token;
+        $accessToken = $this->generateAccessTokenFromRefreshToken($refreshToken);
+    
+        try {
+            $client = new Google_Client();
+            $client->setAccessToken($accessToken);
+    
+            $service = new Google_Service_Calendar($client);
+            $calendarId = 'primary';
+            $event = $service->events->get($calendarId, $id);
+    
+            return response()->json([
+                'summary' => $event->getSummary(),
+                'start' => $event->getStart()->getDateTime(),
+                'end' => $event->getEnd()->getDateTime(),
+                'description' => $event->getDescription(),
+                'location' => $event->getLocation(),
+            ]);
+        } catch (\Exception $ex) {
+            return response()->json(['error' => 'Unable to fetch event details.'], 500);
+        }
+    }
+    
     public function storeEvent(Request $request)
     {
+        // Validación de los datos recibidos
+        $request->validate([
+            'event' => 'required|string|max:255',
+            'start_date' => 'required|date|after_or_equal:now',
+            'end_date' => 'required|date|after:start_date',
+        ]);
+
         $user = auth()->user();
         $refreshToken = $user->google_refresh_token;
         $accessToken = $this->generateAccessTokenFromRefreshToken($refreshToken);
@@ -21,25 +54,29 @@ class CalendarController extends Controller
             $client->setAccessToken($accessToken);
             $service = new Google_Service_Calendar($client);
 
-            $event = new \Google_Service_Calendar_Event(array(
+            $event = new \Google_Service_Calendar_Event([
                 'summary' => $request->input('event'),
-                'start' => array(
-                    'dateTime' => $request->input('start_date'),
+                'start' => [
+                    'dateTime' => \Carbon\Carbon::parse($request->input('start_date'))->toRfc3339String(),
                     'timeZone' => 'America/Monterrey',
-                ),
-                'end' => array(
-                    'dateTime' => $request->input('end_date'),
+                ],
+                'end' => [
+                    'dateTime' => \Carbon\Carbon::parse($request->input('end_date'))->toRfc3339String(),
                     'timeZone' => 'America/Monterrey',
-                ),
-            ));
+                ],
+            ]);
 
             $calendarId = 'primary';
             $service->events->insert($calendarId, $event);
 
             return redirect()->back()->with('success', 'Evento agregado con éxito.');
-        } catch (\Exception $ex) {
-            return redirect()->back()->withErrors('No se pudo completar la solicitud debido al siguiente error: ' . $ex->getMessage());
-        }
+        } catch (\Google_Service_Exception $e) {
+            \Log::error('Google Calendar error: ', ['exception' => $e]);
+            return redirect()->back()->withErrors('Google Calendar error: ' . $e->getMessage());
+        } catch (\Exception $e) {
+            \Log::error('General error: ', ['exception' => $e]);
+            return redirect()->back()->withErrors('General error: ' . $e->getMessage());
+        }        
     }
 
     public function openCalendar(){
