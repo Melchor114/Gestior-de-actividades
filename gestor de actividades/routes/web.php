@@ -9,6 +9,8 @@ use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\TareaController;
 use App\Http\Controllers\BuzonController;
+use App\Http\Controllers\PrioridadController;
+use App\Http\Controllers\NotasController;
 use App\Models\Event;
 use App\Models\Tarea;
 use App\Models\Home;
@@ -30,6 +32,10 @@ Route::get('/tareas/eliminar/{id}', [TareaController::class, 'eliminar_tarea'])-
 
 Route::resource('actividades', HomeController::class)->middleware('auth');
 Route::resource('buzon', BuzonController::class)->middleware('auth');
+Route::resource('prioridad', PrioridadController::class)->middleware('auth');
+Route::resource('notas', NotasController::class)->middleware('auth');
+Route::post('/save-notes', [NotasController::class, 'saveNotes'])->middleware('auth');
+Route::get('/load-notes', [NotasController::class, 'loadNotes'])->middleware('auth');
 Route::apiResource("actividades", HomeController::class);
 Route::apiResource("actividades", Controller::class);
 Route::apiResource("/actividades", HomeController::class);
