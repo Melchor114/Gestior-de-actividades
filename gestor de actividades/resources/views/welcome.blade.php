@@ -236,46 +236,48 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             </div>
         </section>
 
-        <!-- Contact Form-->
-        <section class="section section-sm section-last bg-default text-left" id="contacts">
+        <!-- CTA -->
+        <section class="section section-md bg-primary text-center" id="cta">
             <div class="container">
-                <article class="title-classic">
-                    <div class="title-classic-title">
-                        <h3>Get in touch</h3>
-                    </div>
-                    <div class="title-classic-text">
-                        <p>Fill out the form below and we'll get back to you as soon as possible.</p>
-                    </div>
-                </article>
-                <form method="post" action="">
-                    <div class="row">
-                        <div class="col-md-4">
-                            <div class="form-group">
-                                <label for="name">Name</label>
-                                <input class="form-control" id="name" name="name" type="text" placeholder="Your Name" required>
-                            </div>
-                        </div>
-                        <div class="col-md-4">
-                            <div class="form-group">
-                                <label for="email">Email</label>
-                                <input class="form-control" id="email" name="email" type="email" placeholder="Your Email" required>
-                            </div>
-                        </div>
-                        <div class="col-md-4">
-                            <div class="form-group">
-                                <label for="phone">Phone</label>
-                                <input class="form-control" id="phone" name="phone" type="text" placeholder="Your Phone">
-                            </div>
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label for="message">Message</label>
-                        <textarea class="form-control" id="message" name="message" rows="6" placeholder="Your Message" required></textarea>
-                    </div>
-                    <button class="button button-primary button-ujarak" type="submit">Send Message</button>
-                </form>
+                <h3 style="color: black;">¿Estás listo para mejorar tu productividad académica?</h3>
+                <a class="button button-light button-ujarak" href="#modalCta" data-toggle="modal">Contáctanos</a>
             </div>
         </section>
+
+        <!-- Contact Modal -->
+        <div class="modal fade" id="modalCta" tabindex="-1" role="dialog" aria-labelledby="modalCtaLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="modalCtaLabel">Contáctanos</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <form method="post" action="">
+                            <div class="form-group">
+                                <label for="name">Nombre</label>
+                                <input type="text" class="form-control" id="name" name="name" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="email">Email</label>
+                                <input type="email" class="form-control" id="email" name="email" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="phone">Teléfono</label>
+                                <input type="text" class="form-control" id="phone" name="phone">
+                            </div>
+                            <div class="form-group">
+                                <label for="message">Mensaje</label>
+                                <textarea class="form-control" id="message" name="message" rows="4" required></textarea>
+                            </div>
+                            <button type="submit" class="btn btn-primary">Enviar</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
 
         <!-- Footer -->
         <footer class="footer bg-light">
@@ -299,12 +301,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                     <div class="col-md-4 mb-4">
                         <h5 class="footer-title">Follow Us</h5>
                         <ul class="footer-social-list list-inline">
-                            <li class="list-inline-item"><a class="footer-social-link" href="#"><i class="material-icons">facebook</i></a></li>
-                            <li class="list-inline-item"><a class="footer-social-link" href="#"><i class="material-icons">twitter</i></a></li>
-                            <li class="list-inline-item"><a class="footer-social-link" href="#"><i class="material-icons">instagram</i></a></li>
-                            <li class="list-inline-item"><a class="footer-social-link" href="#"><i class="material-icons">linkedin</i></a></li>
+                            <li class="list-inline-item"><a class="footer-social-link" href="#"><i class="fab fa-facebook-f"></i></a></li>
+                            <li class="list-inline-item"><a class="footer-social-link" href="#"><i class="fab fa-instagram"></i></a></li>
+                            <li class="list-inline-item"><a class="footer-social-link" href="#"><i class="fab fa-x"></i></a></li>
                         </ul>
                     </div>
+
                 </div>
                 <!-- Footer Bottom -->
                 <div class="footer-bottom text-center mt-4">
@@ -312,6 +314,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 </div>
             </div>
         </footer>
+        <!-- Include Font Awesome -->
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+
 
         <!-- Include Material Icons -->
         <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
@@ -345,7 +350,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 font-size: 1.25rem;
                 margin-right: 8px;
                 vertical-align: middle;
-                color: #007bff;
+                color: #6d1641;
             }
 
             .footer-social-list {
@@ -354,7 +359,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
             .footer-social-link {
                 font-size: 1.5rem;
-                color: #007bff;
+                color: #6d1641;
                 margin: 0 8px;
                 transition: color 0.3s;
             }
