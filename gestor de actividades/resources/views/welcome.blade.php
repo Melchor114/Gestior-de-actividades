@@ -1,21 +1,3 @@
-<?php
-// Procesar el formulario si se envía
-if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    $name = htmlspecialchars($_POST['name']);
-    $email = htmlspecialchars($_POST['email']);
-    $phone = htmlspecialchars($_POST['phone']);
-    $message = htmlspecialchars($_POST['message']);
-
-    // Aquí podrías agregar código para enviar el correo o guardar la información
-    // Por ejemplo, enviar un correo usando mail() o procesar los datos según sea necesario
-
-    // Para fines de demostración, simplemente imprimimos los datos
-    echo "Nombre: $name<br>";
-    echo "Email: $email<br>";
-    echo "Teléfono: $phone<br>";
-    echo "Mensaje: $message<br>";
-}
-?>
 <!DOCTYPE html>
 <html class="wide wow-animation" lang="en">
 
@@ -46,6 +28,36 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         html.ie-10 .ie-panel,
         html.lt-ie-10 .ie-panel {
             display: block;
+        }
+
+
+        /* Estilo para el enlace de bienvenida */
+        .rd-nav-link-welcome {
+            color: #007bff;
+            /* Color del texto */
+            font-weight: bold;
+            /* Negrita para el nombre del usuario */
+            text-transform: capitalize;
+            /* Capitalizar la primera letra de cada palabra */
+        }
+
+        /* Estilo para el botón de logout */
+        .rd-nav-link-logout {
+            background: none;
+            /* Sin fondo */
+            border: none;
+            /* Sin borde */
+            color: #dc3545;
+            /* Color de texto (rojo) */
+            cursor: pointer;
+            /* Cursor de puntero para indicar que es clickeable */
+            font-size: 16px;
+            /* Tamaño del texto */
+        }
+
+        .rd-nav-link-logout:hover {
+            color: #c82333;
+            /* Color de texto más oscuro al pasar el mouse */
         }
     </style>
 </head>
@@ -84,12 +96,28 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                                             <li class="rd-nav-item active"><a class="rd-nav-link" href="#home">Home</a></li>
                                             <li class="rd-nav-item"><a class="rd-nav-link" href="#services">Services</a></li>
                                             <!-- Login/Register Links -->
+                                            @guest
                                             <li class="rd-nav-item">
-                                                <a class="rd-nav-link" href="{{ route('login') }}">Login</a>
+                                                <a class="rd-nav-link" href="{{ route('login') }}">Iniciar sesión</a>
                                             </li>
                                             <li class="rd-nav-item">
-                                                <a class="rd-nav-link" href="{{ route('register') }}">Register</a>
+                                                <a class="rd-nav-link" href="{{ route('register') }}">Registrarme</a>
                                             </li>
+                                            @else
+                                            <li class="rd-nav-item">
+                                                <!-- Welcome message styled as a button -->
+                                                <a class="rd-nav-link rd-nav-link-welcome" href="{{ route('profile.show') }}">
+                                                    Bienvenido, {{ Auth::user()->name }}
+                                                </a>
+                                            </li>
+                                            <li class="rd-nav-item">
+                                                <!-- Simple logout button -->
+                                                <form method="POST" action="{{ route('logout') }}" style="display:inline;">
+                                                    @csrf
+                                                    <button type="submit" class="rd-nav-link rd-nav-link-logout">Cerrar sesión</button>
+                                                </form>
+                                            </li>
+                                            @endguest
                                         </ul>
                                     </div>
                                 </div>

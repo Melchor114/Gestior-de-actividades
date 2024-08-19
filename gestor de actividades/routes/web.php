@@ -42,9 +42,13 @@ Route::apiResource("/actividades", HomeController::class);
 
 
 Route::middleware(['auth'])->group(function () {
-    Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
-    Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
-    Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+    // Perfil de usuario
+    Route::prefix('profile')->group(function () {
+        Route::get('/edit', [ProfileController::class, 'edit'])->name('profile.edit');
+        Route::patch('/', [ProfileController::class, 'update'])->name('profile.update');
+        Route::delete('/', [ProfileController::class, 'destroy'])->name('profile.destroy');
+        Route::get('/', [ProfileController::class, 'show'])->name('profile.show');
+    });
 
     Route::get('calendar', [CalendarController::class, 'openCalendar'])->name('calendar');
 
@@ -53,7 +57,6 @@ Route::middleware(['auth'])->group(function () {
 
     Route::get('/google/redirect', [SocialController::class, 'OpenGoogleAccountDetails'])->name('google.callback');
     Route::post('/events', [CalendarController::class, 'storeEvent'])->name('events.store');
-
 });
 
 // Route model binding example for 'tareas'
@@ -67,10 +70,9 @@ Route::get('actividades/{actividad}', function (Event $home) {
 })->middleware('auth');
 
 
-Route::get('test', function(){
+Route::get('test', function () {
     return view('auth.calendar.index');
 });
 
 
-require __DIR__.'/auth.php';
-
+require __DIR__ . '/auth.php';
