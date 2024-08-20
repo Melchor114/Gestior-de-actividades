@@ -108,6 +108,50 @@
         .login-container .register-link a:hover {
             text-decoration: underline;
         }
+
+        /* General Styles */
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            background-color: #f5f5f5;
+        }
+
+        .container {
+            text-align: center;
+        }
+
+        .google-btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 100%;
+            max-width: 190px;
+            padding: 8px 10px;
+            background-color: #f5f5f5;
+            color: black;
+            border: none;
+            border-radius: 4px;
+            font-size: 12px;
+            font-weight: 500;
+            text-decoration: none;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+        }
+
+        .google-btn:hover {
+            background-color: white;
+        }
+
+        .google-btn .google-icon {
+            width: 20px;
+            height: 20px;
+            margin-right: 8px;
+        }
     </style>
 </head>
 
@@ -131,6 +175,13 @@
                 <label for="password">{{ __('Contraseña') }}</label>
                 <input id="password" type="password" name="password" required>
                 <x-input-error :messages="$errors->get('password')" class="mt-2" />
+            </div>
+
+            <div class="container">
+                <a href="{{ url('auth/redirect') }}" class="google-btn">
+                    <img src="https://developers.google.com/identity/images/g-logo.png" alt="Google Logo" class="google-icon">
+                    Iniciar sesión con Google
+                </a>
             </div>
 
             <button type="submit">{{ __('Iniciar sesión') }}</button>

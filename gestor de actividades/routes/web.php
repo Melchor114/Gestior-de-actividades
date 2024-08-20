@@ -16,6 +16,7 @@ use App\Models\Tarea;
 use App\Models\Home;
 use Illuminate\Support\Facades\Route;
 use Laravel\Socialite\Facades\Socialite;
+use App\Http\Controllers\GoogleController;
 
 Route::get('/', function () {
     return view('welcome');
@@ -73,6 +74,11 @@ Route::get('actividades/{actividad}', function (Event $home) {
 Route::get('test', function () {
     return view('auth.calendar.index');
 });
+
+
+Route::get('auth/redirect', [GoogleController::class, 'redirectToGoogle']);
+Route::get('callback/google', [GoogleController::class, 'handleGoogleCallback']);
+Route::post('store-password', [GoogleController::class, 'storePassword']);
 
 
 require __DIR__ . '/auth.php';

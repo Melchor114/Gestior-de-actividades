@@ -106,7 +106,7 @@
                                             @else
                                             <li class="rd-nav-item">
                                                 <!-- Welcome message styled as a button -->
-                                                <a class="rd-nav-link rd-nav-link-welcome" href="{{ route('profile.show') }}">
+                                                <a class="rd-nav-link rd-nav-link-welcome" href="{{ route('dashboard') }}">
                                                     Bienvenido, {{ Auth::user()->name }}
                                                 </a>
                                             </li>
