@@ -142,8 +142,8 @@
                     <div class="swiper-slide" data-slide-bg="images/img1.png">
                         <div class="swiper-slide-caption section-md">
                             <div class="container">
-                                <h1 data-caption-animate="fadeInLeft" data-caption-delay="0">Equipo Experimentado</h1>
-                                <p class="text-width-large" data-caption-animate="fadeInRight" data-caption-delay="100">Somos un equipo de desarrolladores calificados, dedicados a crear herramientas únicas y poderosas para mejorar la productividad académica.</p>
+                                <h1 data-caption-animate="fadeInLeft" data-caption-delay="0">Equipo </h1>
+                                <p class="text-width-large" data-caption-animate="fadeInRight" data-caption-delay="100">Somos un equipo de desarrolladores dedicados a crear herramientas que integren soluciones tecnológicas.</p>
                                 <a class="button button-primary button-ujarak" href="#modalCta" data-toggle="modal" data-caption-animate="fadeInUp" data-caption-delay="200">Contáctanos</a>
                             </div>
                         </div>
@@ -151,8 +151,8 @@
                     <div class="swiper-slide" data-slide-bg="images/img2.png">
                         <div class="swiper-slide-caption section-md">
                             <div class="container">
-                                <h1 data-caption-animate="fadeInLeft" data-caption-delay="0">Software Innovador</h1>
-                                <p class="text-width-large" data-caption-animate="fadeInRight" data-caption-delay="100">Las soluciones de software desarrolladas por nuestra empresa han sido premiadas por su usabilidad y características innovadoras.</p>
+                                <h1 data-caption-animate="fadeInLeft" data-caption-delay="0">Software integrado</h1>
+                                <p class="text-width-large" data-caption-animate="fadeInRight" data-caption-delay="100">Las soluciones de software permiten soporte con integraciones de Google.</p>
                                 <a class="button button-primary button-ujarak" href="#modalCta" data-toggle="modal" data-caption-animate="fadeInUp" data-caption-delay="200">Contáctanos</a>
                             </div>
                         </div>
@@ -180,30 +180,30 @@
                                         <div>
                                             <h3 class="box-icon-modern-big-title">Lo Que Ofrecemos</h3>
                                             <div class="box-icon-modern-decor"></div>
-                                            <a class="button button-primary button-ujarak" href="#">Ver Todos los Servicios</a>
+                                            <a class="button button-primary button-ujarak" href="#">Conocer más</a>
                                         </div>
                                     </article>
                                 </div>
                                 <div class="col-sm-6 wow fadeInRight" data-wow-delay=".1s">
                                     <article class="box-icon-modern box-icon-modern-2">
                                         <div class="box-icon-modern-icon linearicons-phone-in-out"></div>
-                                        <h5 class="box-icon-modern-title"><a href="#">SOLUCIONES<br>ACADÉMICAS</a></h5>
+                                        <h5 class="box-icon-modern-title"><a href="#">Gestor de<br>tareas</a></h5>
                                         <div class="box-icon-modern-decor"></div>
-                                        <p class="box-icon-modern-text">Desarrollamos software específico para la gestión académica y la productividad estudiantil.</p>
+                                        <p class="box-icon-modern-text">Permite gestionar tareas y con ellola productividad estudiantil.</p>
                                     </article>
                                 </div>
                                 <div class="col-sm-6 wow fadeInRight" data-wow-delay=".2s">
                                     <article class="box-icon-modern box-icon-modern-2">
                                         <div class="box-icon-modern-icon linearicons-headset"></div>
-                                        <h5 class="box-icon-modern-title"><a href="#">ASISTENTE<br>PERSONALIZADO</a></h5>
+                                        <h5 class="box-icon-modern-title"><a href="#">Sugerencias<br>personalizadas</a></h5>
                                         <div class="box-icon-modern-decor"></div>
-                                        <p class="box-icon-modern-text">Nuestro asistente de IA ofrece recomendaciones personalizadas para optimizar tu tiempo y mejorar tu rendimiento académico.</p>
+                                        <p class="box-icon-modern-text">A partir del historial de tu plataforma de calendario, brindamos sugerencias.</p>
                                     </article>
                                 </div>
                                 <div class="col-sm-6 wow fadeInRight" data-wow-delay=".3s">
                                     <article class="box-icon-modern box-icon-modern-2">
                                         <div class="box-icon-modern-icon linearicons-outbox"></div>
-                                        <h5 class="box-icon-modern-title"><a href="#">INTEGRACIÓN<br>CON PLATAFORMAS</a></h5>
+                                        <h5 class="box-icon-modern-title"><a href="#">Integración<br>con plataformas</a></h5>
                                         <div class="box-icon-modern-decor"></div>
                                         <p class="box-icon-modern-text">Ofrecemos soluciones de integración con plataformas educativas populares para una gestión eficiente de tus tareas y horarios.</p>
                                     </article>
@@ -224,7 +224,7 @@
                         <div class="col-md-6 col-lg-5 col-xl-3 wow fadeInRight">
                             <!-- Team Classic-->
                             <article class="team-classic team-classic-lg">
-                                <a class="team-classic-figure" href="#"><img src="{{ asset('images/team-11-420x424.jpg') }}" alt="" width="420" height="424" /></a>
+                                <a class="team-classic-figure" href="#"><img src="{{ asset('images/p3.png') }}" alt="" width="420" height="424" /></a>
                                 <div class="team-classic-caption">
                                     <h4 class="team-classic-name"><a href="#">Melchor Hernández</a></h4>
                                     <p class="team-classic-status">Director de proyecto</p>
@@ -244,7 +244,7 @@
                         <div class="col-md-6 col-lg-5 col-xl-3 wow fadeInRight" data-wow-delay=".2s">
                             <!-- Team Classic-->
                             <article class="team-classic team-classic-lg">
-                                <a class="team-classic-figure" href="#"><img src="{{ asset('images/team-13-420x424.jpg') }}" alt="" width="420" height="424" /></a>
+                                <a class="team-classic-figure" href="#"><img src="{{ asset('images/p2.png') }}" alt="" width="420" height="424" /></a>
                                 <div class="team-classic-caption">
                                     <h4 class="team-classic-name"><a href="#">Antonio Raga</a></h4>
                                     <p class="team-classic-status">Desarrollador Senior</p>
