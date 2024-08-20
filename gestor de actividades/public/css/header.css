@@ -1,0 +1,45 @@
+.ie-panel {
+    display: none;
+    background: #212121;
+    padding: 10px 0;
+    box-shadow: 3px 3px 5px 0 rgba(0, 0, 0, .3);
+    clear: both;
+    text-align: center;
+    position: relative;
+    z-index: 1;
+}
+
+html.ie-10 .ie-panel,
+html.lt-ie-10 .ie-panel {
+    display: block;
+}
+
+
+/* Estilo para el enlace de bienvenida */
+.rd-nav-link-welcome {
+    color: #007bff;
+    /* Color del texto */
+    font-weight: bold;
+    /* Negrita para el nombre del usuario */
+    text-transform: capitalize;
+    /* Capitalizar la primera letra de cada palabra */
+}
+
+/* Estilo para el botón de logout */
+.rd-nav-link-logout {
+    background: none;
+    /* Sin fondo */
+    border: none;
+    /* Sin borde */
+    color: #dc3545;
+    /* Color de texto (rojo) */
+    cursor: pointer;
+    /* Cursor de puntero para indicar que es clickeable */
+    font-size: 16px;
+    /* Tamaño del texto */
+}
+
+.rd-nav-link-logout:hover {
+    color: #c82333;
+    /* Color de texto más oscuro al pasar el mouse */
+}
