@@ -50,6 +50,14 @@ class CalendarController extends Controller
             'end_date' => 'required|date|after:start_date',
         ]);
 
+        /*Imprime los datos del request para depuración
+        dd([
+            'event' => $request->input('event'),
+            'start_date' => $request->input('start_date'),
+            'end_date' => $request->input('end_date'),
+            'user' => auth()->user(),
+        ]);*/
+
         $user = auth()->user();
         $refreshToken = $user->google_refresh_token;
         $accessToken = $this->generateAccessTokenFromRefreshToken($refreshToken);
@@ -83,6 +91,7 @@ class CalendarController extends Controller
             return redirect()->back()->withErrors('General error: ' . $e->getMessage());
         }
     }
+
 
     public function openCalendar()
     {

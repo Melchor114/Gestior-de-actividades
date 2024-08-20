@@ -61,19 +61,21 @@
     <!-- Notificación de tareas pendientes para hoy -->
     @if ($hayTareasPendientes)
     <div class="toast-container">
-        <div class="toast">
-            <div class="toast-icon">
-                <svg class="w-6 h-6 text-red-500" xmlns="http://www.w3.org/2000/svg" fill="none"
-                    viewBox="0 0 24 24" stroke="currentColor">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                        d="M12 2C6.48 2 2 6.48 2 12c0 5.52 4.48 10 10 10 5.52 0 10-4.48 10-10 0-5.52-4.48-10-10-10zM11 15h2v2h-2v-2zm0-8h2v6h-2V7z" />
-                </svg>
-            </div>
-            <div class="toast-content">
-                <div class="font-semibold">Tienes tareas pendientes para hoy</div>
-                <div class="text-sm text-gray-600">{{ \Carbon\Carbon::now()->format('d-m-Y') }}</div>
-            </div>
-            <div class="toast-close" onclick="closeToast()">
+        <div class="toast cursor-pointer">
+            <a href="{{ route('dashboard') }}" class="flex items-center">
+                <div class="toast-icon">
+                    <svg class="w-6 h-6 text-red-500" xmlns="http://www.w3.org/2000/svg" fill="none"
+                        viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M12 2C6.48 2 2 6.48 2 12c0 5.52 4.48 10 10 10 5.52 0 10-4.48 10-10 0-5.52-4.48-10-10-10zM11 15h2v2h-2v-2zm0-8h2v6h-2V7z" />
+                    </svg>
+                </div>
+                <div class="toast-content ml-2">
+                    <div class="font-semibold">Tienes tareas pendientes para hoy</div>
+                    <div class="text-sm text-gray-600">{{ \Carbon\Carbon::now()->format('d-m-Y') }}</div>
+                </div>
+            </a>
+            <div class="toast-close" onclick="event.stopPropagation(); closeToast();">
                 <svg class="w-4 h-4 text-gray-500" xmlns="http://www.w3.org/2000/svg" fill="none"
                     viewBox="0 0 24 24" stroke="currentColor">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
@@ -83,21 +85,18 @@
         </div>
     </div>
     @endif
-    <x-slot name="header">
-        <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-            {{ __("Welcome to RAM IA!") }}
-        </h2>
-    </x-slot>
-    <div class="py-4"> <!-- Ajustar el padding vertical -->
+
+    <div class="py-4">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-            <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
-                <div class="p-6 text-gray-900 bg-or">
-                    {{ __("HOY!") }}
-                    <p class="text-sm text-gray-600">{{ \Carbon\Carbon::now()->format('d-m-Y') }}</p>
-                </div>
+            <div class="flex items-center justify-between p-4 border-b border-gray-200">
+                <h1 class="text-2xl font-semibold text-gray-800">
+                    {{ __("Hola, ") . Auth::user()->name }}
+                </h1>
+                <p class="text-lg text-gray-600">{{ \Carbon\Carbon::now()->format('d-m-Y') }}</p>
             </div>
         </div>
     </div>
+
     @php
     $tareasDeHoy = $tareas->filter(function ($tarea) {
     return $tarea->fecha == \Carbon\Carbon::today()->format('Y-m-d');
@@ -174,7 +173,7 @@
     </div>
     @endforeach
 
-
+    <!-- Modal de contenido -->
     <div id="crud-modales" tabindex="-1" aria-hidden="true" class="hidden fixed inset-0 z-50 flex justify-center items-center bg-black bg-opacity-50">
         <div class="relative p-4 w-full max-w-md max-h-full">
             <!-- Contenido del modal -->
@@ -337,14 +336,9 @@
                                 <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6 mr-2" fill="none" viewBox="0 0 16 16" class="g1pQExb" data-icon-name="priority-icon" data-priority="4">
                                     <path fill="currentColor" fill-rule="evenodd" d="M2 3a.5.5 0 0 1 .276-.447C3.025 2.179 4.096 2 5.5 2c.901 0 1.485.135 2.658.526C9.235 2.885 9.735 3 10.5 3c1.263 0 2.192-.155 2.776-.447A.5.5 0 0 1 14 3v6.5a.5.5 0 0 1-.276.447c-.749.375-1.82.553-3.224.553-.901 0-1.485-.135-2.658-.526C6.765 9.615 6.265 9.5 5.5 9.5c-1.08 0-1.915.113-2.5.329V13.5a.5.5 0 0 1-1 0V3Zm1 5.779v-5.45C3.585 3.113 4.42 3 5.5 3c.765 0 1.265.115 2.342.474C9.015 3.865 9.599 4 10.5 4c1.002 0 1.834-.09 2.5-.279v5.45c-.585.216-1.42.329-2.5.329-.765 0-1.265-.115-2.342-.474C6.985 8.635 6.401 8.5 5.5 8.5c-1.001 0-1.834.09-2.5.279Z" clip-rule="evenodd"></path>
                                 </svg>
-                                <span id="prioridad" class="text-gray-900 dark:text-white">Prioridad 1</span>
+                                <span id="prioridad" class="text-gray-900 dark:text-white">Prioridad</span>
                             </div>
                         </div>
-                        <div class="flex space-x-4"> <!-- Ajuste de espacio entre botones -->
-                            <button type="button" class="text-white bg-blue-600 hover:bg-blue-700 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-3 py-1.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800 mr-4">Recordatorios</button>
-                            <button type="button" class="text-white bg-green-600 hover:bg-green-700 focus:ring-4 focus:outline-none focus:ring-green-300 font-medium rounded-lg text-sm px-3 py-1.5 text-center dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-800 mr-4">Etiquetas</button>
-                        </div>
-                        <textarea class="mt-4 bg-gray-50 border border-gray-300 text-black text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 placeholder-gray-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500" placeholder="Añade un comentario"></textarea>
                     </form>
                 </div>
             </div>
@@ -353,7 +347,7 @@
 
 
 
-    <!-- Botón para abrir el modal -->
+    <!-- Botón para abrir el modal de crear -->
     <button data-modal-target="crud-modal" data-modal-toggle="crud-modal" class="fixed end-6 bottom-6 flex items-center justify-center text-white bg-blue-700 rounded-full w-14 h-14 hover:bg-blue-800 dark:bg-blue-600 dark:hover:bg-blue-700 focus:ring-4 focus:ring-blue-300 focus:outline-none dark:focus:ring-blue-800">
         <svg class="w-5 h-5 transition-transform group-hover:rotate-45" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 18 18">
             <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 1v16M1 9h16" />
@@ -361,6 +355,7 @@
         <span class="sr-only">Open actions menu</span>
     </button>
 
+    <!-- Contenedor del modal crear-->
     <div id="crud-modal" tabindex="-1" aria-hidden="true" class="hidden fixed inset-0 z-50 justify-center items-center">
         <div class="relative p-4 w-full max-w-md max-h-full">
             <!-- Contenido del modal -->
@@ -403,7 +398,7 @@
                             <!-- Contenedor para fecha y hora -->
                             <div class="flex space-x-4">
                                 <div class="w-1/2">
-                                    <label for="fecha" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Fecha de Inicio</label>
+                                    <label for="fecha" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Fecha final</label>
                                     <input type="date" name="fecha" id="fecha" class="bg-gray-50 border border-gray-300 text-black text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 placeholder-gray-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500" value="{{ old('fecha') }}" required>
                                     @error('fecha')
                                     <span class="invalid-feedback text-dark" role="alert">
