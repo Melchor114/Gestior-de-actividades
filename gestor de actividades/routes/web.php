@@ -31,6 +31,10 @@ Route::resource('tareas', TareaController::class);
 Route::get('/tareas/eliminar/{id}', [TareaController::class, 'eliminar_tarea'])->name('eliminar_tarea');
 
 
+Route::get('/dashboard', [CalendarController::class, 'showCalendarSummary'])
+    ->middleware('auth')
+    ->name('dashboard');
+
 Route::resource('actividades', HomeController::class)->middleware('auth');
 Route::resource('buzon', BuzonController::class)->middleware('auth');
 Route::resource('prioridad', PrioridadController::class)->middleware('auth');

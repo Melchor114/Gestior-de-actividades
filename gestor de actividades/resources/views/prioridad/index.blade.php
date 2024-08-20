@@ -1,248 +1,145 @@
 <x-app-layout>
-    <x-slot name="header">
-        <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-            {{ __("Welcome to RAM IA!") }}
-        </h2>
-    </x-slot>
 
-    <div class="py-4">
+
+    <div class="py-6">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-            <div class="priority-container">
-                <div class="priority-box">
-                    <h3>Prioridad Baja</h3>
+            <div class="flex gap-6">
+                <div class="priority-box bg-blue-50 border border-blue-200 p-6 rounded-lg shadow-md flex-1">
+                    <h3 class="text-lg font-semibold text-blue-900 mb-4">Prioridad Baja</h3>
                     @foreach ($tareas_baja as $tarea)
-                    <div style="display: flex; align-items: center;">
-                        <a href="{{ route('eliminar_tarea',['id'=>$tarea->id_tarea]) }}" id="btn-completada-{{$tarea->id_tarea}}" style="background-color: #06011f; border: 2px solid rgb(53, 52, 52); width: 20px; height: 20px; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin-right: 2px;">
-                            <svg class="h-4 w-4 text-black stroke-current pointer-events-none">
+                    <div class="flex items-center space-x-4 mb-4">
+                        <a href="{{ route('eliminar_tarea',['id'=>$tarea->id_tarea]) }}" id="btn-completada-{{$tarea->id_tarea}}" class="bg-blue-600 border-2 border-blue-700 w-10 h-10 rounded-full flex items-center justify-center transition-colors hover:bg-blue-700">
+                            <svg class="w-6 h-6 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
                             </svg>
                         </a>
-                        <p>{{$tarea->nombre}}</p>
+                        <p class="text-gray-800">{{ $tarea->nombre }}</p>
                     </div>
-                    <script>
-                        document.addEventListener('DOMContentLoaded', function () {
-                            const btn{{$tarea->id_tarea}} = document.getElementById('btn-completada-{{$tarea->id_tarea}}');
-
-                            btn{{$tarea->id_tarea}}.addEventListener('click', function (event) {
-                                event.preventDefault(); // Evitar que el enlace redirija
-                                event.stopPropagation();
-
-                                // Cambiar el color a morado y agregar la clase
-                                btn{{$tarea->id_tarea}}.style.backgroundColor = 'purple';
-                                btn{{$tarea->id_tarea}}.classList.add('btn-morado');
-
-                                // Eliminar la tarea al hacer clic en "Completada"
-                                window.location.href = "{{ route('eliminar_tarea',['id'=>$tarea->id_tarea]) }}";
-                            });
-                        });
-                    </script>
-                    @endforeach                
+                    @endforeach
                 </div>
-                <div class="priority-box">
-                    <h3>Prioridad Media</h3>
+                <div class="priority-box bg-yellow-50 border border-yellow-200 p-6 rounded-lg shadow-md flex-1">
+                    <h3 class="text-lg font-semibold text-yellow-900 mb-4">Prioridad Media</h3>
                     @foreach ($tareas_media as $tarea)
-                    <div style="display: flex; align-items: center;">
-                        <a href="{{ route('eliminar_tarea',['id'=>$tarea->id_tarea]) }}" id="btn-completada-{{$tarea->id_tarea}}" style="background-color: #06011f; border: 2px solid rgb(53, 52, 52); width: 20px; height: 20px; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin-right: 2px;">
-                            <svg class="h-4 w-4 text-black stroke-current pointer-events-none">
-                            </svg>
+                    <div class="flex items-center space-x-4 mb-4">
+                        <a href="{{ route('eliminar_tarea',['id'=>$tarea->id_tarea]) }}" id="btn-completada-{{$tarea->id_tarea}}" class="bg-orange-600 border-2 border-orange-700 w-10 h-10 rounded-full flex items-center justify-center transition-colors hover:bg-ye900">
                         </a>
-                        <p>{{$tarea->nombre}}</p>
+                        <svg class="w-6 h-6 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+                        </svg>
+                        </a>
+                        <p class="text-gray-800">{{ $tarea->nombre }}</p>
                     </div>
-                    <script>
-                        document.addEventListener('DOMContentLoaded', function () {
-                            const btn{{$tarea->id_tarea}} = document.getElementById('btn-completada-{{$tarea->id_tarea}}');
-
-                            btn{{$tarea->id_tarea}}.addEventListener('click', function (event) {
-                                event.preventDefault(); // Evitar que el enlace redirija
-                                event.stopPropagation();
-
-                                // Cambiar el color a morado y agregar la clase
-                                btn{{$tarea->id_tarea}}.style.backgroundColor = 'purple';
-                                btn{{$tarea->id_tarea}}.classList.add('btn-morado');
-
-                                // Eliminar la tarea al hacer clic en "Completada"
-                                window.location.href = "{{ route('eliminar_tarea',['id'=>$tarea->id_tarea]) }}";
-                            });
-                        });
-                    </script>
-                    @endforeach   
+                    @endforeach
                 </div>
-                <div class="priority-box">
-                    <h3>Prioridad Alta</h3>
+                <div class="priority-box bg-red-50 border border-red-200 p-6 rounded-lg shadow-md flex-1">
+                    <h3 class="text-lg font-semibold text-red-900 mb-4">Prioridad Alta</h3>
                     @foreach ($tareas_alta as $tarea)
-                    <div style="display: flex; align-items: center;">
-                        <a href="{{ route('eliminar_tarea',['id'=>$tarea->id_tarea]) }}" id="btn-completada-{{$tarea->id_tarea}}" style="background-color: #06011f; border: 2px solid rgb(53, 52, 52); width: 20px; height: 20px; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin-right: 2px;">
-                            <svg class="h-4 w-4 text-black stroke-current pointer-events-none">
+                    <div class="flex items-center space-x-4 mb-4">
+                        <a href="{{ route('eliminar_tarea',['id'=>$tarea->id_tarea]) }}" id="btn-completada-{{$tarea->id_tarea}}" class="bg-red-600 border-2 border-red-700 w-10 h-10 rounded-full flex items-center justify-center transition-colors hover:bg-red-700">
+                            <svg class="w-6 h-6 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
                             </svg>
                         </a>
-                        <p>{{$tarea->nombre}}</p>
+                        <p class="text-gray-800">{{ $tarea->nombre }}</p>
                     </div>
-                    <script>
-                        document.addEventListener('DOMContentLoaded', function () {
-                            const btn{{$tarea->id_tarea}} = document.getElementById('btn-completada-{{$tarea->id_tarea}}');
-
-                            btn{{$tarea->id_tarea}}.addEventListener('click', function (event) {
-                                event.preventDefault(); // Evitar que el enlace redirija
-                                event.stopPropagation();
-
-                                // Cambiar el color a morado y agregar la clase
-                                btn{{$tarea->id_tarea}}.style.backgroundColor = 'purple';
-                                btn{{$tarea->id_tarea}}.classList.add('btn-morado');
-
-                                // Eliminar la tarea al hacer clic en "Completada"
-                                window.location.href = "{{ route('eliminar_tarea',['id'=>$tarea->id_tarea]) }}";
-                            });
-                        });
-                    </script>
-                    @endforeach   
+                    @endforeach
                 </div>
             </div>
         </div>
     </div>
-    <style>
-        .priority-container {
-            display: flex;
-            width: 100%;
-            justify-content: space-around;
-            padding: 20px;
-            border-radius: 10px;
-            height: 500px;
-        }
-            .priority-box {
-        flex: 1;
-        margin: 0 10px;
-        background-color: #06011f;
-        padding: 15px;
-        border-radius: 8px;
-        text-align: left; 
-        display: flex;
-        flex-direction: column;
-        justify-content: flex-start;
-    }
 
-    .priority-box h3 {
-        margin: 0;
-        margin-bottom: 10px;
-    }
+    <!-- Botón para abrir el modal -->
+    <button data-modal-target="crud-modal" data-modal-toggle="crud-modal" class="fixed bottom-6 right-6 bg-blue-600 hover:bg-blue-700 text-white rounded-full p-4 shadow-lg focus:outline-none transition-colors">
+        <svg class="w-8 h-8" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4" />
+        </svg>
+        <span class="sr-only">Open actions menu</span>
+    </button>
 
-    .priority-box p {
-        margin: 0; 
-        color: white;
-        padding: 10px;
-        border-radius: 5px;
-        cursor: default;
-    }
-        </style>
-<!-- Botón para abrir el modal -->
-<button data-modal-target="crud-modal" data-modal-toggle="crud-modal" class="fixed end-6 bottom-6 flex items-center justify-center text-white bg-blue-700 rounded-full w-14 h-14 hover:bg-blue-800 dark:bg-blue-600 dark:hover:bg-blue-700 focus:ring-4 focus:ring-blue-300 focus:outline-none dark:focus:ring-blue-800">
-    <svg class="w-5 h-5 transition-transform group-hover:rotate-45" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 18 18">
-        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 1v16M1 9h16"/>
-    </svg>
-    <span class="sr-only">Open actions menu</span>
-</button>
-
-<div id="crud-modal" tabindex="-1" aria-hidden="true" class="hidden fixed inset-0 z-50 justify-center items-center">
-    <div class="relative p-4 w-full max-w-md max-h-full">
-        <!-- Contenido del modal -->
-        <div class="relative bg-white rounded-lg shadow dark:bg-gray-700">
+    <!-- Modal -->
+    <div id="crud-modal" tabindex="-1" aria-hidden="true" class="fixed inset-0 z-50 hidden bg-gray-800 bg-opacity-50 flex justify-center items-center">
+        <div class="relative w-full max-w-lg bg-white rounded-lg shadow-lg">
             <!-- Header del modal -->
-            <div class="flex items-center justify-between p-4 md:p-5 border-b rounded-t dark:border-gray-600">
-                <h3 class="text-lg font-semibold text-gray-900 dark:text-white">
-                    Agregar Nueva Tarea
-                </h3>
-                <button type="button" id="close-modal" class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-6 h-6 ms-auto inline-flex justify-center items-center dark:hover:bg-gray-600 dark:hover:text-white">
-                    <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 14">
-                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6"/>
+            <div class="flex items-center justify-between p-6 border-b rounded-t-lg">
+                <h3 class="text-lg font-semibold text-gray-900">Agregar Nueva Tarea</h3>
+                <button type="button" id="close-modal" class="text-gray-400 hover:bg-gray-200 hover:text-gray-900 rounded-lg p-1.5">
+                    <svg class="w-5 h-5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 14">
+                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6" />
                     </svg>
                     <span class="sr-only">Close modal</span>
                 </button>
             </div>
             <!-- Body del modal -->
-            <div class="p-4 md:p-5">
+            <div class="p-6">
                 <form action="{{ route('tareas.store') }}" method="post">
                     @csrf
-                    <div class="grid gap-4 mb-4">
+                    <div class="space-y-6">
                         <div>
-                            <label for="nombre" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Nombre</label>
-                            <input type="text" name="nombre" id="nombre" class="bg-gray-50 border border-gray-300 text-black text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 placeholder-gray-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500" value="{{ old('nombre') }}" placeholder="Ingrese el nombre" required>
+                            <label for="nombre" class="block text-sm font-medium text-gray-900">Nombre</label>
+                            <input type="text" name="nombre" id="nombre" class="block w-full mt-1 p-3 border border-gray-300 rounded-lg" value="{{ old('nombre') }}" placeholder="Ingrese el nombre" required>
                             @error('nombre')
-                                <span class="invalid-feedback text-dark" role="alert">
-                                    <strong>{{ $message }}</strong>
-                                </span>
+                            <span class="text-red-500 text-sm">{{ $message }}</span>
                             @enderror
                         </div>
                         <div>
-                            <label for="descripcion" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Descripción</label>
-                            <textarea name="descripcion" id="descripcion" rows="4" class="bg-gray-50 border border-gray-300 text-black text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 placeholder-gray-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500" placeholder="Ingrese la descripción" required>{{ old('descripcion') }}</textarea>
+                            <label for="descripcion" class="block text-sm font-medium text-gray-900">Descripción</label>
+                            <textarea name="descripcion" id="descripcion" rows="4" class="block w-full mt-1 p-3 border border-gray-300 rounded-lg" placeholder="Ingrese la descripción" required>{{ old('descripcion') }}</textarea>
                             @error('descripcion')
-                                <span class="invalid-feedback text-dark" role="alert">
-                                    <strong>{{ $message }}</strong>
-                                </span>
+                            <span class="text-red-500 text-sm">{{ $message }}</span>
                             @enderror
                         </div>
-                        <!-- Contenedor para fecha y hora -->
-                        <div class="flex space-x-4">
+                        <div class="flex gap-6">
                             <div class="w-1/2">
-                                <label for="fecha" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Fecha</label>
-                                <input type="date" name="fecha" id="fecha" class="bg-gray-50 border border-gray-300 text-black text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 placeholder-gray-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500" value="{{ old('fecha') }}" required>
+                                <label for="fecha" class="block text-sm font-medium text-gray-900">Fecha</label>
+                                <input type="date" name="fecha" id="fecha" class="block w-full mt-1 p-3 border border-gray-300 rounded-lg" value="{{ old('fecha') }}" required>
                                 @error('fecha')
-                                    <span class="invalid-feedback text-dark" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
+                                <span class="text-red-500 text-sm">{{ $message }}</span>
                                 @enderror
                             </div>
                             <div class="w-1/2">
-                                <label for="hora" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Hora</label>
-                                <input type="time" name="hora" id="hora" class="bg-gray-50 border border-gray-300 text-black text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 placeholder-gray-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500" value="{{ old('hora') }}" required>
+                                <label for="hora" class="block text-sm font-medium text-gray-900">Hora</label>
+                                <input type="time" name="hora" id="hora" class="block w-full mt-1 p-3 border border-gray-300 rounded-lg" value="{{ old('hora') }}" required>
                                 @error('hora')
-                                    <span class="invalid-feedback text-dark" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
+                                <span class="text-red-500 text-sm">{{ $message }}</span>
                                 @enderror
                             </div>
                         </div>
                         <div>
-                            <label for="prioridad" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Prioridad</label>
-                            <select name="prioridad" id="prioridad" class="bg-gray-50 border border-gray-300 text-black text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 placeholder-gray-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500" required>
+                            <label for="prioridad" class="block text-sm font-medium text-gray-900">Prioridad</label>
+                            <select name="prioridad" id="prioridad" class="block w-full mt-1 p-3 border border-gray-300 rounded-lg" required>
                                 <option value="3" {{ old('prioridad') == 'baja' ? 'selected' : '' }}>Baja</option>
                                 <option value="2" {{ old('prioridad') == 'media' ? 'selected' : '' }}>Media</option>
                                 <option value="1" {{ old('prioridad') == 'alta' ? 'selected' : '' }}>Alta</option>
                             </select>
                             @error('prioridad')
-                                <span class="invalid-feedback text-dark" role="alert">
-                                    <strong>{{ $message }}</strong>
-                                </span>
+                            <span class="text-red-500 text-sm">{{ $message }}</span>
                             @enderror
                         </div>
                     </div>
-                    <button type="submit" class="text-white inline-flex items-center bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
-                        <svg class="me-1 -ms-1 w-5 h-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M10 5a1 1 0 011 1v3h3a1 1 0 110 2h-3v3a1 1 0 11-2 0v-3H6a1 1 0 110-2h3V6a1 1 0 011-1z" clip-rule="evenodd"></path></svg>
-                        Agregar Tarea
-                    </button>
+                    <button type="submit" class="mt-4 bg-blue-600 hover:bg-blue-700 text-white font-medium rounded-lg px-6 py-3">Agregar Tarea</button>
                 </form>
             </div>
         </div>
     </div>
-</div>
-
 </x-app-layout>
+
 <script>
-    document.addEventListener('DOMContentLoaded', function () {
+    document.addEventListener('DOMContentLoaded', function() {
         const openModalBtn = document.querySelector('[data-modal-toggle="crud-modal"]');
         const closeModalBtn = document.getElementById('close-modal');
         const modal = document.getElementById('crud-modal');
 
-        openModalBtn.addEventListener('click', function () {
+        openModalBtn.addEventListener('click', function() {
             modal.classList.remove('hidden');
-            modal.classList.add('flex'); // Asegura que el modal se muestre centrado
+            modal.classList.add('flex');
         });
 
-        closeModalBtn.addEventListener('click', function () {
+        closeModalBtn.addEventListener('click', function() {
             modal.classList.add('hidden');
             modal.classList.remove('flex');
         });
 
-        // Event listener to close the modal when clicking outside of it
-        window.addEventListener('click', function (e) {
+        window.addEventListener('click', function(e) {
             if (e.target == modal) {
                 modal.classList.add('hidden');
                 modal.classList.remove('flex');

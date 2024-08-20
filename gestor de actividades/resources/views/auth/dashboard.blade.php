@@ -58,6 +58,8 @@
             margin-left: 1rem;
         }
     </style>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
     <!-- Notificación de tareas pendientes para hoy -->
     @if ($hayTareasPendientes)
     <div class="toast-container">
@@ -441,9 +443,104 @@
             </div>
         </div>
     </div>
+    <div class="container text-center">
+        <h2>Resumen del Último Año</h2>
+
+        <!-- Gráfico de Distribución del Tiempo -->
+        <div class="row justify-content-center">
+            <div class="col-md-8">
+                <canvas id="timeDistributionChart"></canvas>
+            </div>
+        </div>
+        <!-- Sugerencias -->
+        <div class="row justify-content-center" style="margin-top: 2em;">
+            <div class="col-md-8">
+                <div class="card">
+                    <div class="card-body">
+                        @foreach ($suggestions as $suggestion)
+                        <div class="alert alert-info">
+                            {{ $suggestion }}
+                        </div>
+                        @endforeach
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Cita Motivacional -->
+        <div class="row justify-content-center" style="margin-top: 2em;">
+            <div class="col-md-8">
+                <blockquote class="blockquote">
+                    <p class="mb-0">{{ $motivationalQuote }}</p>
+                    <footer class="blockquote-footer">¡Sigue adelante y nunca te detengas!</footer>
+                </blockquote>
+            </div>
+        </div>
+
+    </div>
 
 </x-app-layout>
 <script>
+    document.addEventListener('DOMContentLoaded', function() {
+        var ctx = document.getElementById('timeDistributionChart').getContext('2d');
+        var data = @json($distribution); // Pasa los datos desde Laravel
+
+        var labels = Object.keys(data);
+        var hours = labels.map(label => data[label]['hours']);
+        var percentages = labels.map(label => data[label]['percentage']);
+
+        var timeDistributionChart = new Chart(ctx, {
+            type: 'bar', // Cambia el tipo si prefieres otro (por ejemplo, 'bar' o 'doughnut')
+            data: {
+                labels: labels,
+                datasets: [{
+                    label: 'Distribución del Tiempo',
+                    data: hours, // O usa percentages si prefieres
+                    backgroundColor: [
+                        'rgba(255, 99, 132, 0.2)',
+                        'rgba(54, 162, 235, 0.2)',
+                        'rgba(255, 206, 86, 0.2)',
+                        'rgba(75, 192, 192, 0.2)',
+                        'rgba(153, 102, 255, 0.2)',
+                        'rgba(255, 159, 64, 0.2)',
+                        'rgba(255, 99, 71, 0.2)',
+                        'rgba(60, 179, 113, 0.2)',
+                        'rgba(123, 104, 238, 0.2)',
+                        'rgba(255, 215, 0, 0.2)'
+                    ],
+                    borderColor: [
+                        'rgba(255, 99, 132, 1)',
+                        'rgba(54, 162, 235, 1)',
+                        'rgba(255, 206, 86, 1)',
+                        'rgba(75, 192, 192, 1)',
+                        'rgba(153, 102, 255, 1)',
+                        'rgba(255, 159, 64, 1)',
+                        'rgba(255, 99, 71, 1)',
+                        'rgba(60, 179, 113, 1)',
+                        'rgba(123, 104, 238, 1)',
+                        'rgba(255, 215, 0, 1)'
+                    ],
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                responsive: true,
+                plugins: {
+                    legend: {
+                        position: 'top',
+                    },
+                    tooltip: {
+                        callbacks: {
+                            label: function(tooltipItem) {
+                                return `${tooltipItem.label}: ${tooltipItem.raw} horas`;
+                            }
+                        }
+                    }
+                }
+            }
+        });
+    });
+
     document.addEventListener('DOMContentLoaded', function() {
         const openModalBtn = document.querySelector('[data-modal-toggle="crud-modal"]');
         const closeModalBtn = document.getElementById('close-modal');
