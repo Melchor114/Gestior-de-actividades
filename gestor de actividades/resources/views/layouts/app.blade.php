@@ -55,35 +55,35 @@
             <div class="row text-center text-md-left">
                 <!-- About Us Section -->
                 <div class="col-md-4 mb-4">
-                    <h5 class="footer-title">About Us</h5>
-                    <p class="footer-text">We are dedicated to providing high-quality software solutions and services to meet the needs of businesses and individuals alike. Our team is committed to innovation and excellence.</p>
+                    <h5 class="footer-title">Sobre la Aplicación</h5>
+                    <p class="footer-text">Nuestra aplicación de gestión del tiempo y productividad permite ayudar a los estudiantes a organizar sus horarios académicos, extracurriculares y personales en un solo lugar. Nos dedicamos a ofrecer soluciones para mejorar la eficiencia y el rendimiento académico.</p>
                 </div>
                 <!-- Contact Us Section -->
                 <div class="col-md-4 mb-4">
-                    <h5 class="footer-title">Contact Us</h5>
+                    <h5 class="footer-title">Contáctanos</h5>
                     <ul class="footer-contact-list list-unstyled">
-                        <li><i class="material-icons">phone</i><a href="tel:+1234567890">+1 (234) 567-890</a></li>
-                        <li><i class="material-icons">email</i><a href="mailto:info@example.com">info@example.com</a></li>
-                        <li><i class="material-icons">location_on</i><a href="#">123 Main Street, Anytown, USA</a></li>
+                        <li><i class="material-icons">phone</i><a href="tel:+1234567890">+52 834 341 3264</a></li>
+                        <li><i class="material-icons">email</i><a href="mailto:info@example.com">info@ramia.com</a></li>
+                        <li><i class="material-icons">location_on</i><a href="#">Parque Científico y Tecnológico, Ciudad Victoria, Tamaulipas, México</a></li>
                     </ul>
                 </div>
                 <!-- Follow Us Section -->
                 <div class="col-md-4 mb-4">
-                    <h5 class="footer-title">Follow Us</h5>
+                    <h5 class="footer-title">Síguenos</h5>
                     <ul class="footer-social-list list-inline">
                         <li class="list-inline-item"><a class="footer-social-link" href="#"><i class="fab fa-facebook-f"></i></a></li>
                         <li class="list-inline-item"><a class="footer-social-link" href="#"><i class="fab fa-instagram"></i></a></li>
                         <li class="list-inline-item"><a class="footer-social-link" href="#"><i class="fab fa-x"></i></a></li>
                     </ul>
                 </div>
-
             </div>
             <!-- Footer Bottom -->
             <div class="footer-bottom text-center mt-4">
-                <p class="footer-bottom-text">&copy; 2024 Your Company Name. All rights reserved.</p>
+                <p class="footer-bottom-text">© 2024 Aplicación de Gestión del Tiempo. Todos los derechos reservados.</p>
             </div>
         </div>
     </footer>
+
     <!-- Include Font Awesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 
